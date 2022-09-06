@@ -1,0 +1,60 @@
+ManifestFileVersion: 0
+CRC: 516083726
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3e3caaf2add06afdc42eb4dad9e60261
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5837fb56b2140f1f43bbcffee25ea80b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2f23c85dd325547ec8ade6a07dca5ffc, type: 3}
+- Class: 117
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 187
+  Script: {instanceID: 0}
+- Class: 188
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Tools/CustomAssets/Test Assets/ExampleTextureCube.asset
+- Assets/Tools/CustomAssets/Test Assets/Materials/ExampleTexture3D.mat
+- Assets/Tools/CustomAssets/Test Assets/Materials/stompy.mat
+- Assets/Tools/CustomAssets/Test Assets/externalTexture.png
+- Assets/Tools/CustomAssets/Test Assets/Capsule.prefab
+- Assets/Tools/CustomAssets/Test Assets/ExampleTexture2DArray.asset
+- Assets/Tools/CustomAssets/Test Assets/ExampleMat1.mat
+- Assets/Tools/CustomAssets/Test Assets/ExampleTexture2D.png
+- Assets/Tools/CustomAssets/Test Assets/Materials/externalTexture.mat
+- Assets/Tools/CustomAssets/Test Assets/Cube.prefab
+- Assets/Tools/CustomAssets/Test Assets/ExampleTextureCubeArray.asset
+- Assets/Tools/CustomAssets/Test Assets/stompy.png
+- Assets/Tools/CustomAssets/Test Assets/Materials/ExampleTexture2D.mat
+- Assets/Tools/CustomAssets/Test Assets/ExampleTexture3D.asset
+- Assets/Tools/CustomAssets/Test Assets/ExampleMat2.mat
+Dependencies: []

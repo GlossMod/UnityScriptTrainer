@@ -1,0 +1,3 @@
+[submodule "Mad Games Tycoon 2/uimgui"]
+	path = Mad Games Tycoon 2/uimgui
+	url = https://github.com/psydack/uimgui.git

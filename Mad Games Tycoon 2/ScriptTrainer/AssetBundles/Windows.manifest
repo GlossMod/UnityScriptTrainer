@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 2780781058
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: stompydebugger
+      Dependencies: {}
+    Info_1:
+      Name: devconsole
+      Dependencies: {}
+    Info_2:
+      Name: runtimeinspector
+      Dependencies: {}
+    Info_3:
+      Name: colliderview
+      Dependencies: {}
+    Info_4:
+      Name: pointerinteraction
+      Dependencies: {}
+    Info_5:
+      Name: runtimeeditor
+      Dependencies: {}
+    Info_6:
+      Name: urepl
+      Dependencies: {}
+    Info_7:
+      Name: clickthrublocker
+      Dependencies: {}
+    Info_8:
+      Name: testassetbundle
+      Dependencies: {}
