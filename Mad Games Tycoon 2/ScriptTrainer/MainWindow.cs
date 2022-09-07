@@ -55,28 +55,27 @@ namespace ScriptTrainer
             #region[初始化资源]
             if (testAssetBundle == null)
             {
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle"))
-                {
-                    //testAssetBundle = Il2CppAssetBundleManager.LoadFromFile(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
-                    testAssetBundle = AssetBundle.LoadFromFile(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
-                    if (testAssetBundle == null)
-                    {
-                        Debug.Log("AssetBundle 加载失败");
-                        return;
-                    }
-                    // 输出 资源名称
-                    foreach (var asset in testAssetBundle.GetAllAssetNames())
-                    {
-                        Debug.Log("   Asset Name: " + asset.ToString());
-                    }
+                //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle"))
+                //{
+                //    testAssetBundle = AssetBundle.LoadFromFile(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
+                //    if (testAssetBundle == null)
+                //    {
+                //        Debug.Log("AssetBundle 加载失败");
+                //        return;
+                //    }
+                //    // 输出 资源名称
+                //    foreach (var asset in testAssetBundle.GetAllAssetNames())
+                //    {
+                //        Debug.Log("   Asset Name: " + asset.ToString());
+                //    }
 
-                    Debug.Log("完成");
-                }
-                else
-                {
-                    Debug.LogWarning("跳过 AssetBundle 加载 - testassetBundle 不存在于:" + AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
-                    Debug.LogWarning("请确保“AssetBundles”文件夹已放入游戏根目录");
-                }
+                //    Debug.Log("完成");
+                //}
+                //else
+                //{
+                //    Debug.LogWarning("跳过 AssetBundle 加载 - testassetBundle 不存在于:" + AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
+                //    Debug.LogWarning("请确保“AssetBundles”文件夹已放入游戏根目录");
+                //}
             }
             #endregion
 
@@ -151,12 +150,35 @@ namespace ScriptTrainer
                         Scripts.SuperStaff();
 
                     });
-                    //AddButton("全能开发", () =>
-                    //{
-                    //    Scripts.AllKnow();
-                    //});
+                    AddButton("最高热度", () =>
+                    {
+                        Scripts.MaxHype();
+                    });                    
                 }
-                ButtonHr();
+                hr();
+                {
+                    {
+                        elementX += 150 / 2 - 40;
+                        GameObject button = AddButton("添加所有正面buff", () =>
+                        {
+                            Scripts.AddAllBuff();
+                        });
+                        // 设置宽度为 1500
+                        button.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 40);
+                        elementX += 150 / 2 + 10;
+                    }
+                    {
+                        elementX += 150 / 2 - 40;
+                        GameObject button = AddButton("移除员工负面buff", () =>
+                        {
+                            Scripts.RemoveStaffBuff();
+                        });
+                        // 设置宽度为 1500
+                        button.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 40);
+                        elementX += 150 / 2 + 10;
+                    }
+                }
+                hr();                
                 {
                     AddToggle("不发薪水", 150, (bool state) =>
                     {
@@ -167,9 +189,13 @@ namespace ScriptTrainer
                     {
                         Scripts.AllKnow(state);
                     });
-                    AddToggle("游戏最高人气", 150, (bool state) =>
+                    AddToggle("无限储存空间", 150, (bool state) =>
                     {
-                        Scripts.MaxPopularity(state);
+                        Scripts.InfiniteSpace(state);
+                    });
+                    AddToggle("无限服务器空间", 150, (bool state) =>
+                    {
+                        Scripts.InfiniteServerplatz(state);
                     });
                 }
 
@@ -236,7 +262,8 @@ namespace ScriptTrainer
 
             return uiText;
         }
-        public void ButtonHr()
+        // 换行
+        public void hr()
         {
             elementX = -width / 2 + 60;
             elementY -= 50;

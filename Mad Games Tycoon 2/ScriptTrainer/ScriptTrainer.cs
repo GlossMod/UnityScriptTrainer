@@ -9,7 +9,6 @@ namespace ScriptTrainer
     public class ScriptTrainer: BaseUnityPlugin
     {
         // 窗口相关
-        public static bool DisplayingWindow;
         MainWindow mw;
         
         // 启动按键
@@ -17,22 +16,15 @@ namespace ScriptTrainer
 
         public void Awake()
         {
-            #region[注入游戏方法]
             
-            Harmony.CreateAndPatchAll(typeof(ScriptPatch), null);
-
-            //var harmony = new Harmony("aoe.top.plugins.ScriptTrainer");
-            // These are required since UnHollower doesn't support Interfaces yet - Only needed if you need these events.
-            //var originalOnBeginDrag = AccessTools.Method(typeof(characterScript), "GetWorkSpeed");
-            //var postOnBeginDrag = AccessTools.Method(typeof(ScriptPatch), "GetWorkSpeed");
-            //harmony.Patch(originalOnBeginDrag, postfix: new HarmonyMethod(postOnBeginDrag));
-            //harmony.CreateClassProcessor(typeof(ScriptPatch));
-
-            #endregion
         }
 
         public void Start()
         {
+            #region[注入游戏补丁]
+            Harmony.CreateAndPatchAll(typeof(ScriptPatch), null);
+            #endregion
+
             ShowCounter = Config.Bind("修改器快捷键", "Key", new KeyboardShortcut(KeyCode.F9));
             Debug.Log("脚本已启动");
             mw = new MainWindow();
@@ -54,13 +46,13 @@ namespace ScriptTrainer
                 MainWindow.canvas.SetActive(MainWindow.optionToggle);
                 Event.current.Use();
             }
-
         }
 
         public void OnDestroy()
         {
             // 移除 MainWindow.testAssetBundle 加载时的资源
             AssetBundle.UnloadAllAssetBundles(true);
+
         }
     }
 }

@@ -30,5 +30,15 @@ namespace ScriptTrainer
 
             return new Color32(r, g, b, a);
         }
+
+        public static int ConvertToIntDef(this string input, int defaultValue)
+        {
+            int result;
+            if (int.TryParse(input, out result))
+            {
+                return result;
+            }
+            return defaultValue;
+        }
     }
 }
