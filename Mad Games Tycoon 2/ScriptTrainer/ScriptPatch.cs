@@ -14,19 +14,20 @@ namespace ScriptTrainer
         public static float workEfficiency = 100f;
         public static bool settingsWorkEfficiency = false;
         public static bool settingsNoSalary = false;
+        public static bool setingsAllKnow = false;
         #endregion
 
         //[HarmonyPostfix]
         //[HarmonyPatch(typeof(characterScript), "GetWorkSpeed")]
-        //public static void MyGetWorkSpeed(ref float __result)
+        //public static void GetWorkSpeed(ref float __result)
         //{
         //    __result *= workEfficiency;
 
-        //    //return true;
-        //}        
+        //    return true;
+        //}
 
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(characterScript), "AddMotivation")]
+        [HarmonyPatch(typeof(characterScript), nameof(characterScript.AddMotivation))]
         public static void AddMotivation(characterScript __instance)
         {
             if (settingsWorkEfficiency)
@@ -34,6 +35,39 @@ namespace ScriptTrainer
                 __instance.s_motivation = workEfficiency;
             }
         }
-        
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(characterScript), nameof(characterScript.GetGehalt))]
+        public static void GetGehalt(ref int __result)
+        {
+            if (settingsNoSalary) __result = 0;
+        }
+
+        // 已知设计方向
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(genres), nameof(genres.GetAlignKnown))]
+        public static void GetAlignKnown(ref bool __result)
+        {
+            if (setingsAllKnow) __result = true;
+        }
+
+        // 已知设计重点
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(genres), nameof(genres.GetFocusKnown))]
+        public static void GetFocusKnown(ref bool __result)
+        {
+            if (setingsAllKnow) __result = true;
+        }
+
+
+
+        //[HarmonyPostfix]
+        //[HarmonyPatch(typeof(genres), nameof(genres.GetFocusKnown))]
+        //public static bool GetFocusKnown(ref bool __result)
+        //{
+        //    if (setingsAllKnow) __result = true;
+        //    return __result;
+        //}
+
     }
 }

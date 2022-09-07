@@ -21,14 +21,12 @@ namespace ScriptTrainer
             
             Harmony.CreateAndPatchAll(typeof(ScriptPatch), null);
 
-
             //var harmony = new Harmony("aoe.top.plugins.ScriptTrainer");
             // These are required since UnHollower doesn't support Interfaces yet - Only needed if you need these events.
             //var originalOnBeginDrag = AccessTools.Method(typeof(characterScript), "GetWorkSpeed");
             //var postOnBeginDrag = AccessTools.Method(typeof(ScriptPatch), "GetWorkSpeed");
             //harmony.Patch(originalOnBeginDrag, postfix: new HarmonyMethod(postOnBeginDrag));
             //harmony.CreateClassProcessor(typeof(ScriptPatch));
-
 
             #endregion
         }

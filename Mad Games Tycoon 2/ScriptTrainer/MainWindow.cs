@@ -151,21 +151,25 @@ namespace ScriptTrainer
                         Scripts.SuperStaff();
 
                     });
-                    AddButton("全能开发", () =>
-                    {
-                        Scripts.AllKnow();
-                    });
+                    //AddButton("全能开发", () =>
+                    //{
+                    //    Scripts.AllKnow();
+                    //});
                 }
                 ButtonHr();
                 {
-                    AddToggle("员工最低工资", 150, (bool state) =>
+                    AddToggle("不发薪水", 150, (bool state) =>
                     {
                         Scripts.NoSalary(state);
                     });
 
-                    AddButton("按钮4", () =>
+                    AddToggle("全能开发", 150, (bool state) =>
                     {
-                        Debug.Log("按钮2被点击");
+                        Scripts.AllKnow(state);
+                    });
+                    AddToggle("游戏最高人气", 150, (bool state) =>
+                    {
+                        Scripts.MaxPopularity(state);
                     });
                 }
 

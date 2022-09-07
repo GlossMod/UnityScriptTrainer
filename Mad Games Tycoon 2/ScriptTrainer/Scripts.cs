@@ -55,38 +55,36 @@ namespace ScriptTrainer
         }
         
         // 知道所有类型的倾向度
-        public static void AllKnow()
+        public static void AllKnow(bool konw)
         {
-            
+            ScriptPatch.setingsAllKnow = konw;
         }
 
-        // 最低薪水
+        // 不发薪水
         public static void NoSalary(bool state)
         {
-            //ScriptPatch.settingsNoSalary = state;
+            ScriptPatch.settingsNoSalary = state;
 
-            GameObject[] array = GameObject.FindGameObjectsWithTag("Character");    // 获取员工列表
-            foreach (var item in array)
-            {
-                if (item)
-                {
-                    characterScript component = item.GetComponent<characterScript>();
-                    if (state)
-                    {
-                        component.gehalt = 1;
-                    }
-                    else
-                    {
-                        component.gehalt = component.CalcGehalt();
-                    }
-                    Debug.Log(component.GetGehalt());
-                }
-            }
+            //GameObject[] array = GameObject.FindGameObjectsWithTag("Character");    // 获取员工列表
+            //foreach (var item in array)
+            //{
+            //    if (item)
+            //    {
+            //        characterScript component = item.GetComponent<characterScript>();
+            //        if (state)
+            //        {
+            //            component.gehalt = 1;
+            //        }
+            //        else
+            //        {
+            //            component.gehalt = component.CalcGehalt();
+            //        }
+            //        Debug.Log(component.GetGehalt());
+            //    }
+            //}
         }
 
-
-
-        // 恢复工作效率
+        // 修改工作效率
         public static void AddMotivation()
         {
             UIWindows.SpawnInputDialog("修改员工工作效率", "修改", "1000", (string motivation) =>
@@ -111,10 +109,13 @@ namespace ScriptTrainer
                 //    }
                 //}
             });
-
         }
 
-        
+        public static void MaxPopularity(bool state)
+        {
+            
+        }
+
 
 
     }
