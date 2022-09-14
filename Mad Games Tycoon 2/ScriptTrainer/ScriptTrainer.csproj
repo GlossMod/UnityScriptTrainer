@@ -98,15 +98,18 @@
     <Compile Include="Scripts.cs" />
     <Compile Include="ScriptTrainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Extensions.cs" />
-    <Compile Include="UI\TooltipGUI.cs" />
-    <Compile Include="UI\UIControls.cs" />
-    <Compile Include="UI\UIWindows.cs" />
-    <Compile Include="UI\WindowDragHandler.cs" />
+    <Compile Include="UnityGameUI\Extensions.cs" />
+    <Compile Include="UnityGameUI\TooltipGUI.cs" />
+    <Compile Include="UnityGameUI\UIControls.cs" />
+    <Compile Include="UnityGameUI\UINavigation.cs" />
+    <Compile Include="UnityGameUI\UIWindows.cs" />
+    <Compile Include="UnityGameUI\WindowDragHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="UnityGameUI\README.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

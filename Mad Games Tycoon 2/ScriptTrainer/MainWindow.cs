@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityGameUI;
 using Object = UnityEngine.Object;
 
 namespace ScriptTrainer
 {
-    public class MainWindow: MonoBehaviour
+    public class MainWindow : MonoBehaviour
     {
         #region[声明]
         // Trainer Base
@@ -18,7 +19,7 @@ namespace ScriptTrainer
         public static bool initialized = false;
         public static bool optionToggle = false;
         private static TooltipGUI toolTipComp = null;
-        
+
         // UI
         public static AssetBundle testAssetBundle = null;
         public static GameObject canvas = null;
@@ -102,14 +103,10 @@ namespace ScriptTrainer
                 uiPanel = UIControls.createUIPanel(canvas, height.ToString(), width.ToString(), null);
                 // 设置背景颜色
                 uiPanel.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                
+
                 // 这就是我们将如何挂钩鼠标事件以进行窗口拖动
                 //EventTrigger comp1 = background.AddComponent<EventTrigger>();
                 //WindowDragHandler comp2 = background.AddComponent<WindowDragHandler>();
-
-                
-
-
 
 
                 #region[面板元素]
@@ -139,12 +136,12 @@ namespace ScriptTrainer
                     {
                         Scripts.AddFans();
                     });
-                    
+
                     AddButton("工作效率", () =>
                     {
                         Scripts.AddMotivation();
                     });
-                   
+
                     AddButton("超级员工", () =>
                     {
                         Scripts.SuperStaff();
@@ -153,7 +150,7 @@ namespace ScriptTrainer
                     AddButton("最高热度", () =>
                     {
                         Scripts.MaxHype();
-                    });                    
+                    });
                 }
                 hr();
                 {
@@ -178,7 +175,7 @@ namespace ScriptTrainer
                         elementX += 150 / 2 + 10;
                     }
                 }
-                hr();                
+                hr();
                 {
                     AddToggle("不发薪水", 150, (bool state) =>
                     {
@@ -234,8 +231,8 @@ namespace ScriptTrainer
             uiToggle.GetComponentInChildren<Text>().color = Color.white;
             uiToggle.GetComponentInChildren<Toggle>().isOn = false;
             uiToggle.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
-            
-            uiToggle.GetComponentInChildren<Text>().text = Text;            
+
+            uiToggle.GetComponentInChildren<Text>().text = Text;
             uiToggle.GetComponentInChildren<Toggle>().onValueChanged.AddListener(action);
 
 
@@ -253,9 +250,9 @@ namespace ScriptTrainer
 
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
             GameObject uiText = UIControls.createUIText(TitleBackground, txtBgSprite, "#FFFFFFFF");
-            uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(width - 10, 30);            
+            uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(width - 10, 30);
             uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-            Text text =  uiText.GetComponent<Text>();
+            Text text = uiText.GetComponent<Text>();
             text.text = Title;
             text.alignment = TextAnchor.MiddleCenter;
             text.fontSize = 16;
@@ -271,12 +268,12 @@ namespace ScriptTrainer
 
         #endregion
 
-        
+
 
         #endregion
 
 
 
-        
+
     }
 }
