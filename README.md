@@ -2,6 +2,8 @@
 
 开的坑，一些unity游戏的内置修改器
 
+下载地址： https://pan.aoe.top/ScriptTrainer
+
 目前有：
  - [戴森球计划](https://github.com/GlossMod/UnityScriptTrainer/tree/master/Dyson%20Sphere%20Program)
  - [觅长生](https://github.com/GlossMod/UnityScriptTrainer/tree/master/MiChangSheng)
