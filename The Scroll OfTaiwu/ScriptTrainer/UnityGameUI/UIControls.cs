@@ -806,7 +806,7 @@ namespace UnityGameUI
         }
 
         // 创建文本
-        public static GameObject createUIText(GameObject parent, Sprite BgSprite, string textColor = null)
+        public static GameObject createUIText(GameObject parent, Sprite BgSprite, string textColor = null )
         {
             UIControls.Resources uiResources = new UIControls.Resources();
             uiResources.background = BgSprite;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace UnityGameUI
 {
     // : MonoBehaviour
-    public static class UINavigation
+    internal static class UINavigation
     {
         #region[全局参数]
 

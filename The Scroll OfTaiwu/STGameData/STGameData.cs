@@ -1,38 +1,45 @@
-﻿using Config;
-using FrameWork;
-using GameData.Common;
-using GameData.Domains.Character;
-using GameData.GameDataBridge;
-using HarmonyLib;
+﻿/**
+ * 
+ * 准备操作后端用的辅助dll
+ * 目前交互问题不知道怎么解决
+ * 负重、特性、修炼、等很多功能全部在后端的dll里面
+ * Assembly-CSharp.dll 中很多方法不知道该怎么实现 
+ * 现在有点头疼, 不知道有没有大佬能帮我想想办法
+ * 暂时先把代码提交一些
+ * 周末继续弄
+ * 
+ */
+
+
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityGameUI;
 using Navigation = UnityGameUI.Navigation;
 using Object = UnityEngine.Object;
 
-namespace ScriptTrainer
+namespace STGameData
 {
-    internal class MainWindow : MonoBehaviour
+    public class STGameData: MonoBehaviour
     {
         #region[声明]
         // Trainer Base
-        public  GameObject obj = null;
-        public  MainWindow instance;
-        public  bool initialized = false;
-        public  bool _optionToggle = false;
-        private  TooltipGUI toolTipComp = null;
+        public GameObject obj = null;
+        public STGameData instance;
+        public bool initialized = false;
+        public bool _optionToggle = false;
+        private TooltipGUI toolTipComp = null;
 
         // UI
-        public  AssetBundle testAssetBundle = null;
-        public  GameObject canvas = null;
-        private  bool isVisible = false;
-        private  GameObject uiPanel = null;
+        public AssetBundle testAssetBundle = null;
+        public GameObject canvas = null;
+        private bool isVisible = false;
+        private GameObject uiPanel = null;
         private static readonly int width = Mathf.Min(Screen.width, 740);
         private static readonly int height = (Screen.height < 400) ? Screen.height : (450);
 
@@ -40,7 +47,8 @@ namespace ScriptTrainer
         public bool optionToggle
         {
             get { return _optionToggle; }
-            set {
+            set
+            {
                 // 设置鼠标显示
                 if (value)
                 {
@@ -71,24 +79,9 @@ namespace ScriptTrainer
                 return height / 2 - 60;
             }
         }
-        private  int elementX = initialX;
-        private  int elementY = initialY;
+        private int elementX = initialX;
+        private int elementY = initialY;
         #endregion
-
-        internal  GameObject Create(string name)
-        {
-            obj = new GameObject(name);
-            DontDestroyOnLoad(obj);
-
-            obj.AddComponent<MainWindow>();
-
-            return obj;
-        }
-
-        public MainWindow()
-        {
-            instance = this;
-        }
 
         public void Start()
         {
@@ -102,33 +95,22 @@ namespace ScriptTrainer
                 Initialize();
             }
 
-            if (Input.GetKeyDown(KeyCode.F9))
+            if (Input.GetKeyDown(KeyCode.F10))
             {
                 optionToggle = !optionToggle;
-                Debug.Log("窗口开关状态：" + optionToggle.ToString());
-                 
-                // 加载图标资源
-                ItemWindow.LoadAllPacker();
+                Debug.Log("后端窗口开关状态：" + optionToggle.ToString());
 
                 canvas.SetActive(optionToggle);
                 Event.current.Use();
             }
         }
-        public void OnDestroy()
-        {
-            if (canvas != null)
-            {
-                Object.Destroy(canvas);
-                initialized = false;
-            }            
-            //Debug.Log("MainWindow 销毁完毕");
-        }
 
-        public  void Initialize()
+        public void Initialize()
         {
             initialized = true;
-            instance.CreateUI();
+            instance.CreateUI();            
         }
+
 
         #region[创建UI]
         private void CreateUI()
@@ -146,7 +128,7 @@ namespace ScriptTrainer
                     GameObject background = UIControls.createUIPanel(canvas, (height + 40).ToString(), (width + 40).ToString(), null);
                     background.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
 
-                    
+
                     // 将面板添加到画布, 请参阅 createUIPanel 了解我们将高度/宽度作为字符串传递的原因
                     uiPanel = UIControls.createUIPanel(canvas, height.ToString(), width.ToString(), null);
                     // 设置背景颜色
@@ -161,7 +143,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.2");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.2 后端");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -173,187 +155,7 @@ namespace ScriptTrainer
                     closeButton.GetComponentInChildren<Text>().color = UIControls.HTMLString2Color("#FFFFFFFF");
                     #endregion
 
-
-
-                    #region[常用功能]
-                    GameObject BasicScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
-                    BasicScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                    BasicScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
-
-                    AddH3("常用功能", BasicScripts);
-                    {
-                        AddButton("斗蛐蛐获胜", BasicScripts, () =>
-                        {
-                            GMFunc.CricketForceWin();
-                        });
-                        AddButton("治愈伤病", BasicScripts, () =>
-                        {
-                            for (int i = 0; i <= 6; i++)
-                            {
-                                Scripts.ChangeInjury(true, (sbyte)i, -6);
-                                Scripts.ChangeInjury(false, (sbyte)i, -6);
-                            }
-                        });
-                        AddButton("解除中毒", BasicScripts, () =>
-                        {
-                            for (int i = 0; i <= 5; i++)
-                            {
-                                Scripts.ChangePoisoned((sbyte)i, -1000);
-                            }
-                        });
-                        AddButton("解锁地图", BasicScripts, () =>
-                        {
-                            GMFunc.ShowAllMapBlocks();
-                        });
-                        AddButton("解锁驻站", BasicScripts, () =>
-                        {
-                            GMFunc.UnlockAllStation();
-                        });
-                        //AddButton("解锁功能", BasicScripts, () =>
-                        //{
-                        //    //GMFunc.QuestAllFactionInfos();
-                        //    //var a = GMFunc.GetCombatSkillEditor();
-                        //    //a.SetActive(true);
-                        //    GMFunc.OpenAllWorldFunction();
-                        //});
-                    }
-                    hr();
-                    AddH3("添加资源：", BasicScripts);
-                    {
-                        AddButton("添加食材", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerFood();
-                        });
-                        AddButton("添加木材", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerWood();
-                        });
-                        AddButton("添加金铁", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerGoldIron();
-                        });
-                        AddButton("添加玉石", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerJadeStone();
-                        });
-                        AddButton("添加织物", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerCloth();
-                        });
-                        AddButton("添加药材", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerMedicine();
-                        });
-                    }
-                    hr(10);
-                    {
-                        AddButton("添加现金", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerMoney();
-                        });
-                        AddButton("添加威望", BasicScripts, () =>
-                        {
-                            Scripts.AddPlayerAuthority();
-                        });
-                    }
-                    hr();
-                    AddH3("其他功能", BasicScripts);
-                    {
-                        AddToggle("无限背包", 150, BasicScripts, (bool value) =>
-                        {
-                            ScriptPatch.SettingMaxInventoryLoad = value;
-                        });
-                    }
-
-                    #endregion
-
-                    #region[玩家功能]
-                    ResetCoordinates(true, true);
-                    GameObject PlayerScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
-                    PlayerScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                    PlayerScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
-
-                    AddH3("基础修改", PlayerScripts);
-                    {
-                        AddButton("修改年龄", PlayerScripts, () =>
-                        {
-                            Scripts.ChangeAge();
-                        });
-                        AddButton("修改血量", PlayerScripts, () =>
-                        {
-                            Scripts.ChangeHp();
-                        });
-                        AddButton("编辑心情", PlayerScripts, () =>
-                        {
-                            UIWindows.SpawnInputDialog("您想将心情修改为多少？", "修改", "100", (string count) =>
-                            {
-                                GMFunc.EditHappiness(Scripts.GetPlayerCharId(), count.ConvertToIntDef(100));
-                            });
-                        });
-                      
-                    }
-                    hr();
-                    AddH3("基础属性", PlayerScripts);
-                    {
-                        short[] attributes = new short[6] { 100, 100, 100, 100, 100, 100 };
-                        // int 脊力, int 灵敏, int 定力, int 体质, int 根骨, int 悟性
-                        AddInputField("脊力", 150 , attributes[0].ToString(), PlayerScripts, (string text) =>
-                        {
-                            attributes[0] = (short)text.ConvertToIntDef(100);
-                            Scripts.ChangeMainAttributes(attributes);
-                        });
-                        AddInputField("灵敏", 150 , attributes[1].ToString(), PlayerScripts, (string text) =>
-                        {
-                            attributes[1] = (short)text.ConvertToIntDef(100);
-                            Scripts.ChangeMainAttributes(attributes);
-                        });
-                        AddInputField("定力", 150 , attributes[2].ToString(), PlayerScripts, (string text) =>
-                        {
-                            attributes[2] = (short)text.ConvertToIntDef(100);
-                            Scripts.ChangeMainAttributes(attributes);
-                        });
-                        AddInputField("体质", 150 , attributes[3].ToString(), PlayerScripts, (string text) =>
-                        {
-                            attributes[3] = (short)text.ConvertToIntDef(100);
-                            Scripts.ChangeMainAttributes(attributes);
-                        });
-                        hr(10);
-                        AddInputField("根骨", 150 , attributes[4].ToString(), PlayerScripts, (string text) =>
-                        {
-                            attributes[4] = (short)text.ConvertToIntDef(100);
-                            Scripts.ChangeMainAttributes(attributes);
-                        });
-                        AddInputField("悟性", 150 , attributes[5].ToString(), PlayerScripts, (string text) =>
-                        {
-                            attributes[5] = (short)text.ConvertToIntDef(100);
-                            Scripts.ChangeMainAttributes(attributes);
-                        });
-                        
-                    }
-
-                    #endregion
-
-                    #region[添加物品]
-                    ResetCoordinates(true, true);
-                    GameObject ItemScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
-                    ItemScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                    ItemScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
-
-                    ItemWindow itemWindow = new ItemWindow(ItemScripts, elementX, elementY);
-
-                    #endregion
-
-                    #region[地区恩义]
-                    ResetCoordinates(true, true);
-                    GameObject MapAreaScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
-                    MapAreaScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                    MapAreaScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
-
-                    MapAreaWindow mapAreaWindow = new MapAreaWindow(MapAreaScripts, elementX, elementY);
-
-
-                    #endregion
-
+                    
                     #region[编辑特性]
                     ResetCoordinates(true, true);
                     GameObject FeatureScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
@@ -362,7 +164,7 @@ namespace ScriptTrainer
 
 
 
-                    FeatureWindow featureWindow = new FeatureWindow(FeatureScripts, elementX, elementY);
+                    //FeatureWindow featureWindow = new FeatureWindow(FeatureScripts, elementX, elementY);
 
                     #endregion
 
@@ -382,11 +184,11 @@ namespace ScriptTrainer
 
                     Navigation[] nav = new Navigation[]
                     {
-                        new Navigation("BasicScripts","常用功能", BasicScripts, true),
-                        new Navigation("PlayerScripts","玩家功能", PlayerScripts, false),
-                        new Navigation("ItemScripts","添加物品", ItemScripts, false),
-                        new Navigation("MapAreaScripts","地区恩义", MapAreaScripts, false),
-                        new Navigation("FeatureScripts", "编辑特性", FeatureScripts, false),
+                        //new Navigation("BasicScripts","常用功能", BasicScripts, true),
+                        //new Navigation("PlayerScripts","玩家功能", PlayerScripts, false),
+                        //new Navigation("ItemScripts","添加物品", ItemScripts, false),
+                        //new Navigation("MapAreaScripts","地区恩义", MapAreaScripts, false),
+                        new Navigation("FeatureScripts", "编辑特性", FeatureScripts, true),
                         //new Navigation("ItemScripts", "获取物品", ItemScripts, false),
 
                     };
@@ -414,10 +216,16 @@ namespace ScriptTrainer
                 Debug.Log(e.Message);
                 initialized = false;
             }
-            
+
         }
 
         #endregion
+
+
+
+
+
+
 
 
         #region[添加组件]
@@ -585,7 +393,5 @@ namespace ScriptTrainer
         #endregion
 
 
-
     }
-
 }

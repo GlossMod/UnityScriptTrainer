@@ -148,6 +148,17 @@ namespace ScriptTrainer
                 return list;
             }
         }
+        // 鸡
+
+        public static List<ItemData> Chicken
+        {
+            get
+            {
+                List<ItemData> list = new List<ItemData>();
+                foreach (var item in Config.Chicken.Instance) list.Add((ItemData)item);
+                return list;
+            }
+        }
 
         // 其他
         public static List<ItemData> Misc
@@ -195,7 +206,9 @@ namespace ScriptTrainer
             initialY = elementY = y;
             Initialize();
         }
-        
+
+        #region[创建UI]
+
         private void Initialize()
         {
             searchBar(Panel);
@@ -261,7 +274,7 @@ namespace ScriptTrainer
 
             // 类型
             List<string> options = new List<string> {
-                "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他"
+                "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他","鸡"
             };
            
 
@@ -429,7 +442,9 @@ namespace ScriptTrainer
             elementX = initialX;
             elementY -= 60;
         }
-        
+
+        #endregion
+
         #region[获取数据]
 
         private static List<ItemData> GetItemData()
@@ -479,13 +494,16 @@ namespace ScriptTrainer
                 case 12:
                     m_item = SetItemData(Misc);
                     break;
+                case 13:
+                    m_item = SetItemData(Chicken);
+                    break;
             }
 
             return m_item;
         }
         
        
-        private static List<ItemData> SetItemData<T>(List<T> m_data_list)
+        private static List<ItemData> SetItemData(List<ItemData> m_data_list)
         {
             List<ItemData> item = new List<ItemData>();
             List<ItemData> r_item = new List<ItemData>();
@@ -648,6 +666,11 @@ namespace ScriptTrainer
          public static explicit operator ItemData(TeaWineItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
+        }
+
+        public static explicit operator ItemData(ChickenItem item)
+        {
+            return new ItemData(item.TemplateId, item.Name, item.Display, item.Desc, item.Grade, 0, 0);
         }
 
         #endregion

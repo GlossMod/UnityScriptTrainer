@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace UnityGameUI
 {
-    public class UIWindows
+    internal class UIWindows
     {
         public UIWindows()
         {

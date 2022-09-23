@@ -1,5 +1,6 @@
 ﻿using Config;
 using GameData.Common;
+using GameData.Domains;
 using GameData.Domains.Character;
 using GameData.GameDataBridge;
 using HarmonyLib;
@@ -15,7 +16,7 @@ namespace ScriptTrainer
     public static class Scripts
     {
         #region[全局参数]
-        public static int playerId = SingletonObject.getInstance<BasicGameData>().TaiwuCharId;
+        //public static int playerId = DomainManager.Taiwu.GetTaiwuCharId();
         #endregion
 
         #region[添加资源]
@@ -83,6 +84,7 @@ namespace ScriptTrainer
 
         private static void  AddResource(sbyte type, string count)
         {
+
             GameDataBridge.AddMethodCall<sbyte, int>(-1, 5, 5, type, count.ConvertToIntDef(1000));
         }
         #endregion
@@ -116,7 +118,9 @@ namespace ScriptTrainer
         // 改变地区恩义?
         public static void ChangeSpiritualDebt(int areaId, int spiritualDebt)
         {
-            GameDataBridge.AddMethodCall<short, short>(-1, 2, 4, (short)areaId, (short)spiritualDebt);
+            GMFunc.ChangeSpiritualDebt(areaId, spiritualDebt);
+
+            //GameDataBridge.AddMethodCall<short, short>(-1, 2, 4, (short)areaId, (short)spiritualDebt);
         }
 
         // 修改玩家年龄

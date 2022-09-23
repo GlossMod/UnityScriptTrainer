@@ -4,24 +4,23 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BF5359C7-5F37-4C5B-92E7-81A14117A278}</ProjectGuid>
+    <ProjectGuid>{58B8B2A1-A429-419F-A924-6F324FAFC74E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ScriptTrainer</RootNamespace>
-    <AssemblyName>ScriptTrainer</AssemblyName>
+    <RootNamespace>STGameData</RootNamespace>
+    <AssemblyName>STGameData</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>F:\steam\steamapps\common\The Scroll Of Taiwu\Mod\scirpts\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>0</WarningLevel>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,8 +35,8 @@
       <HintPath>..\libs\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\libs\Assembly-CSharp.dll</HintPath>
+    <Reference Include="GameData">
+      <HintPath>..\libs\GameData.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -82,34 +81,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Debug.cs" />
-    <Compile Include="GameDataScript.cs" />
-    <Compile Include="ScriptPatch.cs" />
-    <Compile Include="ScriptWindow\FeatureWindow.cs" />
-    <Compile Include="ScriptWindow\ItemWindow.cs" />
-    <Compile Include="main.cs" />
-    <Compile Include="MainWindow.cs" />
-    <Compile Include="MessageBox.cs" />
-    <Compile Include="Scripts.cs" />
-    <Compile Include="ScriptTrainer.cs" />
+    <Compile Include="STGameData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptWindow\MapAreaWindow.cs" />
-    <Compile Include="type.cs" />
     <Compile Include="UnityGameUI\Extensions.cs" />
     <Compile Include="UnityGameUI\TooltipGUI.cs" />
     <Compile Include="UnityGameUI\UIControls.cs" />
     <Compile Include="UnityGameUI\UINavigation.cs" />
     <Compile Include="UnityGameUI\UIWindows.cs" />
     <Compile Include="UnityGameUI\WindowDragHandler.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\STGameData\STGameData.csproj">
-      <Project>{58b8b2a1-a429-419f-a924-6f324fafc74e}</Project>
-      <Name>STGameData</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="UnityGameUI\.git" />

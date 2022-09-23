@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 namespace UnityGameUI
 {
     // 窗口拖动相关注入
-    public class WindowDragHandler : MonoBehaviour
+    internal class WindowDragHandler : MonoBehaviour
     {
         public static WindowDragHandler instance;
         private const int NON_EXISTING_TOUCH = -98456;

@@ -8,7 +8,7 @@ namespace UnityGameUI
     internal delegate bool d_LoadImage(IntPtr tex, IntPtr data, bool markNonReadable);
     internal delegate bool parseHTMLString(IntPtr HTMLString, IntPtr result);
 
-    public static class Extensions
+    internal static class Extensions
     {
         // Load Image ICall
 

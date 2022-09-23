@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptTrainer", "ScriptTrainer\ScriptTrainer.csproj", "{BF5359C7-5F37-4C5B-92E7-81A14117A278}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STGameData", "STGameData\STGameData.csproj", "{58B8B2A1-A429-419F-A924-6F324FAFC74E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BF5359C7-5F37-4C5B-92E7-81A14117A278}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF5359C7-5F37-4C5B-92E7-81A14117A278}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF5359C7-5F37-4C5B-92E7-81A14117A278}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B8B2A1-A429-419F-A924-6F324FAFC74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B8B2A1-A429-419F-A924-6F324FAFC74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B8B2A1-A429-419F-A924-6F324FAFC74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B8B2A1-A429-419F-A924-6F324FAFC74E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

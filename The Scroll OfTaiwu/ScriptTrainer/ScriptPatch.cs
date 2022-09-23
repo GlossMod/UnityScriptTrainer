@@ -1,25 +1,37 @@
 ﻿using System;
-using Config;
+using GameData.Domains;
+using GameData.Domains.Character;
 using HarmonyLib;
-using UnityEngine;
 
 namespace ScriptTrainer
 {
     public class ScriptPatch
     {
         #region[全局参数]
-        public static bool SettingMaxInventoryLoad = false;
+        public static bool SettingMaxInventoryLoad = true;
 
         #endregion
 
         //[HarmonyPostfix]
-        //[HarmonyPatch(typeof(Character))]
-        //public static void GetKidnapMaxSlotCount()
+        //[HarmonyPatch(typeof(GameData.Domains.Global.Inscription.InscribedCharacter), "CalcAttraction")]
+        //public static void CalcAttraction(ref int __result)
         //{
-
-        //    Character.GetKidnapMaxSlotCount();
+        //    if (SettingMaxInventoryLoad)
+        //    {
+        //        __result = 100;
+        //    }
         //}
-        
+
+        //[HarmonyPostfix]
+        //[HarmonyPatch("GameData.Domains.Character.Character", "GetMaxInventoryLoad")]
+        //public static void GetMaxInventoryLoad(ref int __result)
+        //{
+        //    if (SettingMaxInventoryLoad)
+        //    {
+        //        __result = 99999;
+        //    }
+        //}
+
 
         //[HarmonyPostfix]
         //[HarmonyPatch(typeof(UnityEngine.UI.CanvasScaler), "Update")]        
