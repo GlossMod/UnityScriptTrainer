@@ -274,7 +274,8 @@ namespace ScriptTrainer
 
             // 类型
             List<string> options = new List<string> {
-                "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他","鸡"
+                "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他",
+                //"鸡"
             };
            
 
@@ -670,7 +671,7 @@ namespace ScriptTrainer
 
         public static explicit operator ItemData(ChickenItem item)
         {
-            return new ItemData(item.TemplateId, item.Name, item.Display, item.Desc, item.Grade, 0, 0);
+            return new ItemData(item.TemplateId, item.Name, item.Display, item.Desc, item.Grade, 0, (sbyte)99);
         }
 
         #endregion

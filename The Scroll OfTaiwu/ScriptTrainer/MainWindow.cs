@@ -161,7 +161,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.2");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.2.1");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -257,13 +257,13 @@ namespace ScriptTrainer
                         });
                     }
                     hr();
-                    AddH3("其他功能", BasicScripts);
-                    {
-                        AddToggle("无限背包", 150, BasicScripts, (bool value) =>
-                        {
-                            ScriptPatch.SettingMaxInventoryLoad = value;
-                        });
-                    }
+                    //AddH3("其他功能", BasicScripts);
+                    //{
+                    //    AddToggle("无限背包", 150, BasicScripts, (bool value) =>
+                    //    {
+                    //        ScriptPatch.SettingMaxInventoryLoad = value;
+                    //    });
+                    //}
 
                     #endregion
 
@@ -355,14 +355,14 @@ namespace ScriptTrainer
                     #endregion
 
                     #region[编辑特性]
-                    ResetCoordinates(true, true);
-                    GameObject FeatureScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
-                    FeatureScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                    FeatureScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
+                    //ResetCoordinates(true, true);
+                    //GameObject FeatureScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
+                    //FeatureScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
+                    //FeatureScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
 
 
 
-                    FeatureWindow featureWindow = new FeatureWindow(FeatureScripts, elementX, elementY);
+                    //FeatureWindow featureWindow = new FeatureWindow(FeatureScripts, elementX, elementY);
 
                     #endregion
 
@@ -386,7 +386,7 @@ namespace ScriptTrainer
                         new Navigation("PlayerScripts","玩家功能", PlayerScripts, false),
                         new Navigation("ItemScripts","添加物品", ItemScripts, false),
                         new Navigation("MapAreaScripts","地区恩义", MapAreaScripts, false),
-                        new Navigation("FeatureScripts", "编辑特性", FeatureScripts, false),
+                        //new Navigation("FeatureScripts", "编辑特性", FeatureScripts, false),
                         //new Navigation("ItemScripts", "获取物品", ItemScripts, false),
 
                     };

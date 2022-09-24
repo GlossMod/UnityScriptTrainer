@@ -23,7 +23,7 @@ namespace ScriptTrainer
         {
             //// 销毁
             Object.Destroy(gameObject);
-            harmony.UnpatchSelf();
+            //harmony.UnpatchSelf();
             Debug.Log("ScriptTrainer 销毁");
         }
 
@@ -34,7 +34,7 @@ namespace ScriptTrainer
             gameObject = new GameObject($"taiwu.ScriptTrainer{DateTime.Now.Ticks}");
             gameObject.AddComponent<MainWindow>();
             // 加载后端的操作dll
-            gameObject.AddComponent<STGameData.STGameData>();
+            //gameObject.AddComponent<STGameData.STGameData>();
             //#region[注入游戏补丁]
             //harmony = Harmony.CreateAndPatchAll(typeof(ScriptPatch), "ScriptTrainer");
             ////Harmony.CreateAndPatchAll(typeof(UnityGameUI.WindowDragHandler), null);

@@ -17,6 +17,13 @@ namespace ScriptTrainer
     {
         #region[全局参数]
         //public static int playerId = DomainManager.Taiwu.GetTaiwuCharId();
+        public static int playerId
+        {
+            get
+            {
+                return SingletonObject.getInstance<BasicGameData>().TaiwuCharId;
+            }
+        }
         #endregion
 
         #region[添加资源]
@@ -84,8 +91,9 @@ namespace ScriptTrainer
 
         private static void  AddResource(sbyte type, string count)
         {
+            Traverse.Create(typeof(GMFunc)).Method("AddResource", type, count.ConvertToIntDef(1000)).GetValue();
 
-            GameDataBridge.AddMethodCall<sbyte, int>(-1, 5, 5, type, count.ConvertToIntDef(1000));
+            //GameDataBridge.AddMethodCall<sbyte, int>(-1, 5, 6, type, count.ConvertToIntDef(1000));
         }
         #endregion
 
@@ -104,15 +112,19 @@ namespace ScriptTrainer
         /// <param name="delta">伤势值 最大6 负数为降低</param>
         public static void ChangeInjury(bool isInnerInjury, sbyte bodyPartType, sbyte delta)
         {
-            int charId = GetPlayerCharId();
-            GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, 4, 72, charId, isInnerInjury, bodyPartType, delta);
+            //int charId = GetPlayerCharId();
+            GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, 4, 76, playerId, isInnerInjury, bodyPartType, delta);
+
+            //GMFunc.ChangeInjury(playerId, isInnerInjury, bodyPartType, delta);
         }
         
         // 设置中毒
         public static void ChangePoisoned(sbyte poisonType, int changeValue)
         {
-            int charId = GetPlayerCharId();
-            GameDataBridge.AddMethodCall<int, sbyte, int>(-1, 4, 73, charId, poisonType, changeValue);
+            //int charId = GetPlayerCharId();
+            GameDataBridge.AddMethodCall<int, sbyte, int>(-1, 4, 77, playerId, poisonType, changeValue);
+
+            //GMFunc.ChangePoisoned(playerId, poisonType, changeValue);
         }
 
         // 改变地区恩义?
@@ -172,9 +184,18 @@ namespace ScriptTrainer
 
         public static void GetItem(sbyte itemType, int itemId, int count)
         {
-            int charId = GetPlayerCharId();
+            //int charId = GetPlayerCharId();
 
-            GameDataBridge.AddMethodCall<int, sbyte, short, int>(-1, 4, 17, charId, itemType, (short)itemId, count);
+            //GameDataBridge.AddMethodCall<int, sbyte, short, int>(-1, 4, 17, charId, itemType, (short)itemId, count);
+
+            if (itemType == 99)
+            {
+                GameDataBridge.AddMethodCall<int, int>(-1, 9, 85, itemId, playerId);
+            }
+            else
+            {
+                GMFunc.GetItem(playerId, count, itemType, (short)itemId, null);
+            }
         }
 
         #endregion
