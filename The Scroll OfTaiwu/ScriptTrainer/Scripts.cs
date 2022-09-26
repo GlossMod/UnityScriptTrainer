@@ -16,7 +16,20 @@ namespace ScriptTrainer
     public static class Scripts
     {
         #region[全局参数]
-        //public static int playerId = DomainManager.Taiwu.GetTaiwuCharId();
+        public static int playerId
+        {
+            get
+            {
+                return SingletonObject.getInstance<BasicGameData>().TaiwuCharId;
+            }
+        }
+        public static int CurCharacterId
+        {
+            get
+            {
+                return SingletonObject.getInstance<UI_CharacterMenuSubPageBase>().CharacterMenu.CurCharacterId;
+            }
+        }
         #endregion
 
         #region[添加资源]
