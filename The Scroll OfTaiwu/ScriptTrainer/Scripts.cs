@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityGameUI;
+using GameData.Domains.Character;
 
 namespace ScriptTrainer
 {
@@ -27,7 +28,18 @@ namespace ScriptTrainer
         {
             get
             {
-                return SingletonObject.getInstance<UI_CharacterMenuSubPageBase>().CharacterMenu.CurCharacterId;
+                try
+                {
+                    UI_CharacterMenu ui_CharacterMenuSubPageBase = UIElement.CharacterMenu.UiBaseAs<UI_CharacterMenu>();
+                    //int CurCharacterId = Traverse.Create(typeof(UI_CharacterMenu)).Field<int>("CurCharacterId").Value;
+                    return ui_CharacterMenuSubPageBase.CurCharacterId;
+                }
+                catch (Exception)
+                {
+
+                    return -1;
+                }
+                
             }
         }
         #endregion
@@ -97,17 +109,13 @@ namespace ScriptTrainer
 
         private static void  AddResource(sbyte type, string count)
         {
+            Traverse.Create(typeof(GMFunc)).Method("AddResource", type, count.ConvertToIntDef(1000)).GetValue();
 
-            GameDataBridge.AddMethodCall<sbyte, int>(-1, 5, 5, type, count.ConvertToIntDef(1000));
+            //GameDataBridge.AddMethodCall<sbyte, int>(-1, 5, 6, type, count.ConvertToIntDef(1000));
         }
         #endregion
 
         #region[玩家功能]
-
-        public static int GetPlayerCharId()
-        {
-            return SingletonObject.getInstance<BasicGameData>().TaiwuCharId;
-        }
 
         /// <summary>
         /// 设置伤势
@@ -117,15 +125,19 @@ namespace ScriptTrainer
         /// <param name="delta">伤势值 最大6 负数为降低</param>
         public static void ChangeInjury(bool isInnerInjury, sbyte bodyPartType, sbyte delta)
         {
-            int charId = GetPlayerCharId();
-            GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, 4, 72, charId, isInnerInjury, bodyPartType, delta);
+            //int charId = playerId();
+            GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, 4, 76, playerId, isInnerInjury, bodyPartType, delta);
+
+            //GMFunc.ChangeInjury(playerId, isInnerInjury, bodyPartType, delta);
         }
         
         // 设置中毒
         public static void ChangePoisoned(sbyte poisonType, int changeValue)
         {
-            int charId = GetPlayerCharId();
-            GameDataBridge.AddMethodCall<int, sbyte, int>(-1, 4, 73, charId, poisonType, changeValue);
+            //int charId = playerId();
+            GameDataBridge.AddMethodCall<int, sbyte, int>(-1, 4, 77, playerId, poisonType, changeValue);
+
+            //GMFunc.ChangePoisoned(playerId, poisonType, changeValue);
         }
 
         // 改变地区恩义?
@@ -137,35 +149,65 @@ namespace ScriptTrainer
         }
 
         // 修改玩家年龄
-        public static void ChangeAge()
+        public static void ChangeAge(int charid = 0)            
         {
-            UIWindows.SpawnInputDialog("您想将自己修改为多少岁？", "设置", "18", (string count) =>
+            if (charid == 0)
             {
-                int charId = GetPlayerCharId();
-                GMFunc.EditActualAge(charId, count.ConvertToIntDef(18));
-            });
+                UIWindows.SpawnInputDialog($"您想将自己修改为多少岁？", "设置", "18", (string count) =>
+                {
+                    GMFunc.EditActualAge(playerId, count.ConvertToIntDef(18));
+                });
+            }
+            else
+            {
+                UIWindows.SpawnInputDialog($"您想将{charid}修改为多少岁？", "设置", "18", (string count) =>
+                {
+                    GMFunc.EditActualAge(charid, count.ConvertToIntDef(18));
+                });
+            }
+            
         }
         
         public static void ChangeHp()
         {
             UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "200", (string count) =>
             {
-                int charId = GetPlayerCharId();
                 short value = (short) count.ConvertToIntDef(200);
 
-                GameDataBridge.AddDataModification<short>(4, 0, (ulong)charId, 19U, (short)value);
-                GameDataBridge.AddDataModification<short>(4, 0, (ulong)charId, 20U, (short)value);
+                GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 19U, (short)value);
+                GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 20U, (short)value);
             });
         }
 
         // 修改主要属性
-        public static void ChangeMainAttributes(short[] attributes)
+        public static void ChangeMainAttributes(short[] attributes, int charId = 0)
         {
-            int charId = GetPlayerCharId();
+            if (charId == 0)
+            {
+                // 修改主要属性
+                GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)playerId, 18U, new MainAttributes(attributes));
+                GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)playerId, 43U, new MainAttributes(attributes));
+            }
+            else
+            {
+                // 修改主要属性
+                GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 18U, new MainAttributes(attributes));
+                GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 43U, new MainAttributes(attributes));
+            }
+            
+        }
 
-            // 修改主要属性
-            GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 18U, new MainAttributes(attributes));
-            GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 43U, new MainAttributes(attributes));
+        public static void ChangeNeiLi(int[] allocation)
+        {
+            Debug.Log($"{allocation[0]}-{allocation[1]}-{allocation[2]}-{allocation[3]}");
+
+            GMFunc.EditExtraNeiliAllocation(playerId, allocation[0], allocation[1], allocation[2], allocation[3]);
+
+            //NeiliAllocation arg = default(NeiliAllocation);
+
+            //*arg.Items.FixedElementField = allocation[0];
+
+            //GameDataBridge.AddMethodCall<int, NeiliAllocation>(-1, 4, 67, playerId, arg);
         }
 
         // 编辑基础道德
@@ -173,8 +215,7 @@ namespace ScriptTrainer
         {
             UIWindows.SpawnInputDialog("您想修改道德为多少？", "设置", "18", (string count) =>
             {
-                int charId = GetPlayerCharId();
-                GMFunc.EditBaseMorality(charId, count.ConvertToIntDef(18));
+                GMFunc.EditBaseMorality(playerId, count.ConvertToIntDef(18));
             });
         }
 
@@ -185,20 +226,43 @@ namespace ScriptTrainer
 
         public static void GetItem(sbyte itemType, int itemId, int count)
         {
-            int charId = GetPlayerCharId();
+            //int charId = playerId();
 
-            GameDataBridge.AddMethodCall<int, sbyte, short, int>(-1, 4, 17, charId, itemType, (short)itemId, count);
+            //GameDataBridge.AddMethodCall<int, sbyte, short, int>(-1, 4, 17, charId, itemType, (short)itemId, count);
+
+            if (itemType == 99)
+            {
+                GameDataBridge.AddMethodCall<int, int>(-1, 9, 85, itemId, playerId);
+            }
+            else
+            {
+                GMFunc.GetItem(playerId, count, itemType, (short)itemId, null);
+            }
         }
 
         #endregion
 
 
+        #region[Npc功能]
+        
+        public static void ChangeFavor(int charId1, int charId2)
+        {
+            UIWindows.SpawnInputDialog("您想修改好感为多少？", "设置", "6000", (string count) =>
+            {
+                GameDataBridge.AddMethodCall(-1, 4, 58, charId1, charId2, (short)count.ConvertToIntDef(18));
+                //GMFunc.ChangeFavorability(charId1, charId2, (short)count.ConvertToIntDef(18));
+            });
+
+        }
+
+        #endregion
 
 
         public static void Test()
         {
+            Debug.Log(CurCharacterId.ToString());
 
-            GMFunc.CricketForceWin();
+            //GMFunc.CricketForceWin();
 
             // 获取名誉相关事件
             //for (int i = 0; i < FameAction.Instance.Count; i++)
@@ -234,7 +298,7 @@ namespace ScriptTrainer
             //}
 
 
-            //int a =   Config.CharacterFeature.GetCharacterPropertyBonus(GetPlayerCharId(), ECharacterPropertyReferencedType.AttackSpeed);
+            //int a =   Config.CharacterFeature.GetCharacterPropertyBonus(playerId(), ECharacterPropertyReferencedType.AttackSpeed);
 
             //Debug.Log(a.ToString());
 

@@ -1,4 +1,5 @@
 ﻿using Config;
+using GameData.Domains.Map;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,49 @@ namespace ScriptTrainer
         private static int page = 1;
         private static int conunt = 36;
         // Config.MapArea.Instance.Count / conunt 向下取整
+        public static List<MapAreaList> MapArea
+        {
+            get
+            {
+                try
+                {
+                    List<MapAreaList> list = new List<MapAreaList>();
+                    Debug.Log($"玩家：{Scripts.playerId}");
+                    if (Scripts.playerId != 0)
+                    {
+                        WorldMapModel instance = SingletonObject.getInstance<WorldMapModel>();
+                        for (int i = 0; i < instance.Areas.Length; i++)
+                        {
+                            var item = instance.Areas[i];
+                            if (searchText != "")
+                            {
+                                if (item.GetConfig().Name.Contains(searchText))
+                                {
+                                    list.Add(new MapAreaList(item.GetConfig().Name, i));
+                                }
+                            }
+                            else
+                            {
+                                list.Add(new MapAreaList(item.GetConfig().Name, i));
+                            }
+                        }
+                    }
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.ToString());
+                    return new List<MapAreaList>();
+                }
+
+                
+            }
+        }
 
         private static int maxPage {
             get
             {
-                return (int)Math.Ceiling((double)Config.MapArea.Instance.Count / conunt);
+                return (int)Math.Ceiling((double)MapArea.Count / conunt);
             }
         }
         private static string searchText = "";
@@ -61,17 +100,18 @@ namespace ScriptTrainer
             //int page = 1;
             //int conunt = 36;
             //int maxPage = Config.MapArea.Instance.Count / conunt;
+            searchBar();
             container();
-
             pageBar();
 
         }
+                
 
-        
-
-        private static void container()
+        public static void container()
         {
             ResetCoordinates(true, true);
+            elementY -= 30;
+            elementX += 10;
 
             foreach (var item in ItemButtons)
             {
@@ -79,26 +119,31 @@ namespace ScriptTrainer
             }
             ItemButtons.Clear();
 
+            if (Scripts.playerId == 0)
+            {
+                var btn = AddH3("请先进入游戏", Panel);
+                ItemButtons.Add(btn);
+                return;
+            }
+            
+
             int start = (page - 1) * conunt;
             int end = start + conunt;
+            end = end >= MapArea.Count ? MapArea.Count : end;
 
-            AddH3("修改地区恩义", Panel);
+            //AddH3("修改地区恩义", Panel);
             for (int i = start; i < end;)
             {
-                var item = Config.MapArea.Instance[i];
+                var item = MapArea[i];
 
-                GameObject btn = AddButton(item.Name, Panel, () =>
+                GameObject btn = AddButton(item.name, Panel, () =>
                 {
-                    UIWindows.SpawnInputDialog($"您将在{item.Name}的地区恩义设置为多少？", "修改", "1", (string count) =>
+                    UIWindows.SpawnInputDialog($"{item.name}的恩义设为多少? 100 = 10.0%", "修改", "100", (string count) =>
                     {
-                        Scripts.ChangeSpiritualDebt(item.TemplateId, count.ConvertToIntDef(100));
+                        Scripts.ChangeSpiritualDebt(item.areaId, count.ConvertToIntDef(100));
 
-                        //KBEngine.Avatar player = Tools.instance.getPlayer();    // 获取玩家 
-                        //player.addItem(item.itemID, Tools.CreateItemSeid(item.itemID), count.ConvertToIntDef(1));
-                        //Singleton.inventory.AddItem(item.itemID);
                     });
 
-                    
                 });
                 i++;
                 if (i % 6 == 0)
@@ -108,6 +153,45 @@ namespace ScriptTrainer
 
                 ItemButtons.Add(btn);
             }
+        }
+
+        #region[筛选]
+
+        // 搜索
+        private static void searchBar()
+        {
+            elementY += 10;
+            elementX += 50;
+
+            // label
+            Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
+            GameObject uiText = UIControls.createUIText(Panel, txtBgSprite, "#FFFFFFFF");
+            uiText.GetComponent<Text>().text = "搜索";
+            uiText.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
+            //uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 30);
+            uiText.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;
+
+            // 坐标偏移
+            elementX += 10;
+
+            // 输入框
+            int w = 260;
+            Sprite inputFieldSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#212121FF"));
+            GameObject uiInputField = UIControls.createUIInputField(Panel, inputFieldSprite, "#FFFFFFFF");
+            uiInputField.GetComponent<InputField>().text = searchText;
+            uiInputField.GetComponent<RectTransform>().localPosition = new Vector3(elementX + 100, elementY, 0);
+            uiInputField.GetComponent<RectTransform>().sizeDelta = new Vector2(w, 30);
+
+            // 文本框失去焦点时触发方法
+            uiInputField.GetComponent<InputField>().onEndEdit.AddListener((string text) =>
+            {
+                //Debug.Log(text);
+                page = 1;
+                searchText = text;
+                container();
+                MapAreaWindow.uiText.GetComponent<Text>().text = uiText_text;
+                //Destroy(ItemPanel);
+            });
         }
 
         // 分页
@@ -157,7 +241,9 @@ namespace ScriptTrainer
             nextBtn.GetComponent<RectTransform>().localPosition = new Vector3(100, 0, 0);
         }
 
+        #endregion
 
+        #region[组件]
         public static GameObject AddButton(string Text, GameObject panel, UnityAction action)
         {
             string backgroundColor = "#8C9EFFFF";
@@ -211,5 +297,21 @@ namespace ScriptTrainer
             if (y) elementY = initialY;
         }
 
+        #endregion
+        
+        
+
+    }
+
+    public class MapAreaList
+    {
+        public string name;
+        public int areaId;
+
+        public MapAreaList(string name, int areaId)
+        {
+            this.name = name;
+            this.areaId = areaId;
+        }
     }
 }

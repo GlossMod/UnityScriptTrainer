@@ -26,10 +26,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>F:\steam\steamapps\common\The Scroll Of Taiwu\Mod\ScriptTrainer\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -94,6 +94,7 @@
     <Compile Include="ScriptTrainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptWindow\MapAreaWindow.cs" />
+    <Compile Include="ScriptWindow\NpcWindow.cs" />
     <Compile Include="type.cs" />
     <Compile Include="UnityGameUI\Extensions.cs" />
     <Compile Include="UnityGameUI\TooltipGUI.cs" />
@@ -104,12 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\STGameData\STGameData.csproj">
-      <Project>{58b8b2a1-a429-419f-a924-6f324fafc74e}</Project>
-      <Name>STGameData</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="UnityGameUI\.git" />

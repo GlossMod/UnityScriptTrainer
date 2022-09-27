@@ -27,6 +27,7 @@ namespace ScriptTrainer
         public  bool initialized = false;
         public  bool _optionToggle = false;
         private  TooltipGUI toolTipComp = null;
+        public static KeyCode Hot_Key = KeyCode.F9;
 
         // UI
         public  AssetBundle testAssetBundle = null;
@@ -45,12 +46,14 @@ namespace ScriptTrainer
                 if (value)
                 {
                     //Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+                    Cursor.visible = true;                    
                 }
                 else
                 {
                     Cursor.visible = false;
                 }
+                NpcWindow.Initialize();
+                MapAreaWindow.container();
 
                 _optionToggle = value;
             }
@@ -75,7 +78,9 @@ namespace ScriptTrainer
         private  int elementY = initialY;
         #endregion
 
-        internal  GameObject Create(string name)
+        #region[初始化]
+
+        internal GameObject Create(string name)
         {
             obj = new GameObject(name);
             DontDestroyOnLoad(obj);
@@ -102,13 +107,13 @@ namespace ScriptTrainer
                 Initialize();
             }
 
-            if (Input.GetKeyDown(KeyCode.F9))
+            if (Input.GetKeyDown(Hot_Key))
             {
                 optionToggle = !optionToggle;
                 Debug.Log("窗口开关状态：" + optionToggle.ToString());
                  
                 // 加载图标资源
-                ItemWindow.LoadAllPacker();
+                ItemWindow.LoadAllPacker();                
 
                 canvas.SetActive(optionToggle);
                 Event.current.Use();
@@ -129,6 +134,8 @@ namespace ScriptTrainer
             initialized = true;
             instance.CreateUI();
         }
+
+        #endregion
 
         #region[创建UI]
         private void CreateUI()
@@ -161,7 +168,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.2");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.3");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -257,13 +264,13 @@ namespace ScriptTrainer
                         });
                     }
                     hr();
-                    AddH3("其他功能", BasicScripts);
-                    {
-                        AddToggle("无限背包", 150, BasicScripts, (bool value) =>
-                        {
-                            ScriptPatch.SettingMaxInventoryLoad = value;
-                        });
-                    }
+                    //AddH3("其他功能", BasicScripts);
+                    //{
+                    //    AddButton("测试按钮", BasicScripts, () =>
+                    //    {
+                    //        Scripts.Test();
+                    //    });
+                    //}
 
                     #endregion
 
@@ -287,7 +294,7 @@ namespace ScriptTrainer
                         {
                             UIWindows.SpawnInputDialog("您想将心情修改为多少？", "修改", "100", (string count) =>
                             {
-                                GMFunc.EditHappiness(Scripts.GetPlayerCharId(), count.ConvertToIntDef(100));
+                                GMFunc.EditHappiness(Scripts.playerId, count.ConvertToIntDef(100));
                             });
                         });
                       
@@ -296,7 +303,6 @@ namespace ScriptTrainer
                     AddH3("基础属性", PlayerScripts);
                     {
                         short[] attributes = new short[6] { 100, 100, 100, 100, 100, 100 };
-                        // int 脊力, int 灵敏, int 定力, int 体质, int 根骨, int 悟性
                         AddInputField("脊力", 150 , attributes[0].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[0] = (short)text.ConvertToIntDef(100);
@@ -328,8 +334,42 @@ namespace ScriptTrainer
                             attributes[5] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
                         });
-                        
                     }
+                    hr();
+                    AddH3("编辑内力", PlayerScripts);
+                    {
+                        int[] allocation_Items = new int[4] { 100, 100, 100, 100 };
+                        AddInputField("摧破", 150, allocation_Items[0].ToString(), PlayerScripts, (string text) =>
+                        {
+                            allocation_Items[0] = text.ConvertToIntDef(100);
+                            Scripts.ChangeNeiLi(allocation_Items);
+                        });
+                        AddInputField("轻灵", 150, allocation_Items[1].ToString(), PlayerScripts, (string text) =>
+                        {
+                            allocation_Items[1] = text.ConvertToIntDef(100);
+                            Scripts.ChangeNeiLi(allocation_Items);
+                        });
+                        AddInputField("护体", 150, allocation_Items[2].ToString(), PlayerScripts, (string text) =>
+                        {
+                            allocation_Items[2] = text.ConvertToIntDef(100);
+                            Scripts.ChangeNeiLi(allocation_Items);
+                        });
+                        AddInputField("奇巧", 150, allocation_Items[3].ToString(), PlayerScripts, (string text) =>
+                        {
+                            allocation_Items[3] = text.ConvertToIntDef(100);
+                            Scripts.ChangeNeiLi(allocation_Items);
+                        });
+                    }
+
+                    #endregion
+
+                    #region[NPC功能]
+                    ResetCoordinates(true, true);
+                    GameObject NpcScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
+                    NpcScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
+                    NpcScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
+
+                    NpcWindow npcWindow = new NpcWindow(NpcScripts, elementX, elementY);
 
                     #endregion
 
@@ -355,14 +395,14 @@ namespace ScriptTrainer
                     #endregion
 
                     #region[编辑特性]
-                    ResetCoordinates(true, true);
-                    GameObject FeatureScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
-                    FeatureScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
-                    FeatureScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
+                    //ResetCoordinates(true, true);
+                    //GameObject FeatureScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
+                    //FeatureScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
+                    //FeatureScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
 
 
 
-                    FeatureWindow featureWindow = new FeatureWindow(FeatureScripts, elementX, elementY);
+                    //FeatureWindow featureWindow = new FeatureWindow(FeatureScripts, elementX, elementY);
 
                     #endregion
 
@@ -384,9 +424,10 @@ namespace ScriptTrainer
                     {
                         new Navigation("BasicScripts","常用功能", BasicScripts, true),
                         new Navigation("PlayerScripts","玩家功能", PlayerScripts, false),
+                        new Navigation("NpcScripts","Npc功能", NpcScripts, false),
                         new Navigation("ItemScripts","添加物品", ItemScripts, false),
                         new Navigation("MapAreaScripts","地区恩义", MapAreaScripts, false),
-                        new Navigation("FeatureScripts", "编辑特性", FeatureScripts, false),
+                        //new Navigation("FeatureScripts", "编辑特性", FeatureScripts, false),
                         //new Navigation("ItemScripts", "获取物品", ItemScripts, false),
 
                     };

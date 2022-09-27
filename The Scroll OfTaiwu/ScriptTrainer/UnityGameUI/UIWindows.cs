@@ -28,6 +28,8 @@ namespace UnityGameUI
             GameObject uiText = UIControls.createUIText(uiPanel, txtBgSprite, "#FFFFFFFF");
             uiText.GetComponent<Text>().text = prompt;
             uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 10, 0);
+            // 设置宽度
+            uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(280, 30);
 
             // 创建输入框
             Sprite inputFieldSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#212121FF"));

@@ -274,7 +274,8 @@ namespace ScriptTrainer
 
             // 类型
             List<string> options = new List<string> {
-                "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他","鸡"
+                "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他",
+                //"鸡"
             };
            
 
@@ -375,8 +376,6 @@ namespace ScriptTrainer
                 {
                     "下", "中", "上", "奇", "密", "极", "超", "绝", "神"
                 };
-
-
                 var btn = createItemButton($"{item.Name} - {Grade[item.Gradel]}", ItemPanel, item.Icon, item.Gradel, () =>
                 {
                     UIWindows.SpawnInputDialog($"您想获取多少个{item.Name}？", "添加", "1", (string count) =>
@@ -422,6 +421,7 @@ namespace ScriptTrainer
             GameObject uiText = UIControls.createUIText(background, txtBgSprite);
             uiText.GetComponent<Text>().text = text;
             uiText.GetComponent<Text>().color = Colors.Instance.GradeColors[quality];   // 根据品质修改字体颜色
+
             uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 5, 0);
 
             // 创建按钮
@@ -580,7 +580,7 @@ namespace ScriptTrainer
             }
             if (sprite == default(Sprite))
             {
-                Debug.Log($"未找到图标 {spriteName}");
+                //Debug.Log($"未找到图标 {spriteName}");
             }
             
             return sprite;
@@ -670,7 +670,7 @@ namespace ScriptTrainer
 
         public static explicit operator ItemData(ChickenItem item)
         {
-            return new ItemData(item.TemplateId, item.Name, item.Display, item.Desc, item.Grade, 0, 0);
+            return new ItemData(item.TemplateId, item.Name, item.Display, item.Desc, item.Grade, 0, (sbyte)99);
         }
 
         #endregion
