@@ -1,9 +1,3 @@
-[submodule "Mad Games Tycoon 2/uimgui"]
-	path = Mad Games Tycoon 2/uimgui
-	url = https://github.com/psydack/uimgui.git
 [submodule "Mad Games Tycoon 2/ScriptTrainer/UnityGameUI"]
 	path = Mad Games Tycoon 2/ScriptTrainer/UnityGameUI
 	url = https://github.com/3DMXM/UnityGameUI.git
-[submodule "The Scroll OfTaiwu/ScriptTrainer/ScriptTrainer/UnityGameUI"]
-	path = The Scroll OfTaiwu/ScriptTrainer/ScriptTrainer/UnityGameUI
-	url = https://github.com/GlossMod/UnityGameUI.git
