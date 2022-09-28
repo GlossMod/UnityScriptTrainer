@@ -168,7 +168,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.3");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.4");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -216,12 +216,13 @@ namespace ScriptTrainer
                         {
                             GMFunc.UnlockAllStation();
                         });
-                        //AddButton("解锁功能", BasicScripts, () =>
+                        //AddButton("探索势力", BasicScripts, () =>
                         //{
                         //    //GMFunc.QuestAllFactionInfos();
                         //    //var a = GMFunc.GetCombatSkillEditor();
                         //    //a.SetActive(true);
-                        //    GMFunc.OpenAllWorldFunction();
+                        //    //GMFunc.QuestAllFactionInfos();
+                        //    GMFunc.QuestAllGroupInfos();
                         //});
                     }
                     hr();
@@ -296,8 +297,7 @@ namespace ScriptTrainer
                             {
                                 GMFunc.EditHappiness(Scripts.playerId, count.ConvertToIntDef(100));
                             });
-                        });
-                      
+                        });                        
                     }
                     hr();
                     AddH3("基础属性", PlayerScripts);
@@ -333,7 +333,7 @@ namespace ScriptTrainer
                         {
                             attributes[5] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
-                        });
+                        });                        
                     }
                     hr();
                     AddH3("编辑内力", PlayerScripts);
@@ -359,6 +359,24 @@ namespace ScriptTrainer
                             allocation_Items[3] = text.ConvertToIntDef(100);
                             Scripts.ChangeNeiLi(allocation_Items);
                         });
+                        hr(10);
+                        AddInputField("丹田", 150, "100", PlayerScripts, (string text) =>
+                        {
+                            GMFunc.EditExtraNeili(Scripts.playerId, text.ConvertToIntDef(100));
+                        });
+                        AddInputField("境界", 150, "10", PlayerScripts, (string text) =>
+                        {
+                            GMFunc.EditConsummateLevel(Scripts.playerId, text.ConvertToIntDef(10));
+                        });
+                        //AddButton("最大内力", PlayerScripts, () =>
+                        //{
+                        //    // 109 GameDataBridge.AddDataModification<int>(4, 0, (ulong)((long)charId), 27U, value);
+                        //    UIWindows.SpawnInputDialog("您想将最大内力设为多少？", "修改", "100", (string count) =>
+                        //    {
+                        //        //GMFunc.EditConsummateLevel(Scripts.playerId, count.ConvertToIntDef(100));
+                        //        GameDataBridge.AddDataModification<int>(4, 0, (ulong)Scripts.playerId, 109U, count.ConvertToIntDef(100));
+                        //    });
+                        //});
                     }
 
                     #endregion

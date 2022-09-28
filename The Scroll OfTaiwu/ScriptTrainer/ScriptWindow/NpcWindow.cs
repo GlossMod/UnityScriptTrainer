@@ -73,6 +73,32 @@ namespace ScriptTrainer
                         GMFunc.EditHappiness(Scripts.CurCharacterId, count.ConvertToIntDef(100));
                     });
                 });
+                AddButton("设置关系", NpcPanel, () =>
+                {
+                    Scripts.Relationship(Scripts.playerId, Scripts.CurCharacterId);
+                });
+                AddButton("可为同道", NpcPanel, () =>
+                {
+                    GMFunc.SetCharacterOrganization(Scripts.CurCharacterId,16);
+                });
+                hr(10);
+                AddButton("绑架他/她", NpcPanel, () =>
+                {
+                    Scripts.Kidnap(Scripts.CurCharacterId);
+                });
+                AddButton("与其做爱", NpcPanel, () =>
+                {
+                    GMFunc.MakeCharacterHaveSex(Scripts.playerId, Scripts.CurCharacterId, false, 3);
+                });
+                AddButton("强迫做爱", NpcPanel, () =>
+                {
+                    GMFunc.MakeCharacterHaveSex(Scripts.playerId, Scripts.CurCharacterId, true, 3);
+                });
+                //AddButton("设为双性恋", NpcPanel, () =>
+                //{
+                //    GMFunc.EditBisexual(Scripts.CurCharacterId, true);
+                //});
+
             }
             hr();
             AddH3("基础属性", NpcPanel);

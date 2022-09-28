@@ -1,4 +1,5 @@
 ﻿using Config;
+using GameData.GameDataBridge;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -41,11 +42,11 @@ namespace ScriptTrainer
             }
         }
         
-        public static int PlayerCharId
+       public static List<short> FeatureIds
         {
             get
             {
-                return SingletonObject.getInstance<BasicGameData>().TaiwuCharId;
+                return new List<short>();
             }
         }
 
@@ -121,11 +122,17 @@ namespace ScriptTrainer
                 var item = CharacterFeature[i];
                 GameObject btn = AddButton($"{item.Name} {item.Level}", item.Level, Panel, () =>
                 {
-                    // 添加
-                    var Character =  Config.Character.Instance[PlayerCharId];
-                    Character.FeatureIds.Add(item.TemplateId);
+                    FeatureIds.Add(item.TemplateId);
 
-                    Debug.Log($"Character {Character.GivenName} - {Character.Surname}");
+                    GameDataBridge.AddDataModification<List<short>>(4, 0, (ulong)Scripts.playerId, 17U, FeatureIds);
+
+                    // 添加
+                    //var Character =  Config.Character.Instance[PlayerCharId];
+                    //Character.FeatureIds.Add(item.TemplateId);
+
+                    // FeatureIds
+
+                    //Debug.Log($"Character {Character.GivenName} - {Character.Surname}");
 
                     //  GameData.Domains.Character.Character
                     // private bool OfflineAddFeature(short featureId, bool removeMutexFeature)

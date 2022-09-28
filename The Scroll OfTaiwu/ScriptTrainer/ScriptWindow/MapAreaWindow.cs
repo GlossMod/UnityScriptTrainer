@@ -34,7 +34,7 @@ namespace ScriptTrainer
                 try
                 {
                     List<MapAreaList> list = new List<MapAreaList>();
-                    Debug.Log($"玩家：{Scripts.playerId}");
+                    //Debug.Log($"玩家：{Scripts.playerId}");
                     if (Scripts.playerId != 0)
                     {
                         WorldMapModel instance = SingletonObject.getInstance<WorldMapModel>();

@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityGameUI;
 using GameData.Domains.Character;
+using GameData.Domains.Character.Relation;
+using GameData.Domains.Character.Display;
 
 namespace ScriptTrainer
 {
@@ -39,7 +41,20 @@ namespace ScriptTrainer
 
                     return -1;
                 }
-                
+            }
+        }
+        public static string CurCharacterName
+        {
+            get
+            {
+                UI_CharacterMenu ui_CharacterMenuSubPageBase = UIElement.CharacterMenu.UiBaseAs<UI_CharacterMenu>();
+                //int CurCharacterId = Traverse.Create(typeof(UI_CharacterMenu)).Field<int>("CurCharacterId").Value;
+                string name = "";
+                foreach (var item in ui_CharacterMenuSubPageBase.Names)
+                {
+                    name += item;
+                }
+                return name;
             }
         }
         #endregion
@@ -244,7 +259,7 @@ namespace ScriptTrainer
 
 
         #region[Npc功能]
-        
+        // 修改好感度
         public static void ChangeFavor(int charId1, int charId2)
         {
             UIWindows.SpawnInputDialog("您想修改好感为多少？", "设置", "6000", (string count) =>
@@ -254,8 +269,57 @@ namespace ScriptTrainer
             });
 
         }
+        // 绑架NPC
+        public static void Kidnap(int charId)
+        {
+            GameDataBridge.AddMethodCall<int, int>(-1, 4, 68, playerId, charId);
+        }
+        // 设置关系
+        public static void Relationship(int charIdA, int charIdB)
+        {
+            //GMFunc.AddCharacterRelationship(type: (sbyte)RelationType.Mentor, Scripts.playerId, Scripts.CurCharacterId);
+
+            List<string> options = new List<string>
+            {
+                "一般", "父母","子女","手足", "义父母", "养子", "养手足", "结义金兰","结为夫妻", "师父","徒弟","朋友","敬仰之人","仇人"
+            };
+            List<ushort> o_type = new List<ushort> {
+                RelationType.General,
+                RelationType.BloodParent,
+                RelationType.BloodChild,
+                RelationType.BloodBrotherOrSister,
+                RelationType.StepParent,
+                RelationType.StepChild,
+                RelationType.AdoptiveBrotherOrSister,
+                RelationType.SwornBrotherOrSister,
+                RelationType.HusbandOrWife,
+                RelationType.Mentor,
+                RelationType.Mentee,
+                RelationType.Friend,
+                RelationType.Adored,
+                RelationType.Enemy
+            };
+
+            UIWindows.SpawnDropdownDialog($"你想让{charIdB}成为你的什么？", "修改", options, (int call) =>
+            {
+                GameDataBridge.AddMethodCall<int, int, ushort>(-1, 4, 13, charIdA, charIdB, o_type[call]);
+            });
+
+
+        }
 
         #endregion
+
+        public static string GetCharacterName(int charId)
+        {
+            bool isTaiwu = playerId == charId;
+            NameRelatedData nameRelatedData = new NameRelatedData();
+            ValueTuple<string, string> monasticTitleOrName = NameCenter.GetMonasticTitleOrName(ref nameRelatedData, isTaiwu, false);
+            string item = monasticTitleOrName.Item1;
+            string item2 = monasticTitleOrName.Item2;
+            return item + item2;
+        }
+
 
 
         public static void Test()
