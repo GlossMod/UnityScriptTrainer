@@ -189,7 +189,7 @@ namespace ScriptTrainer
         }
 
         // 分页
-        public static void pageBar()
+        public static GameObject pageBar()
         {
             // 背景
             GameObject pageObj = UIControls.createUIPanel(Panel, "40", "500");
@@ -233,6 +233,9 @@ namespace ScriptTrainer
             });
             nextBtn.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 20);
             nextBtn.GetComponent<RectTransform>().localPosition = new Vector3(100, 0, 0);
+
+
+            return pageObj;
         }
 
         #region[元素方法]

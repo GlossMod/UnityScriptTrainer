@@ -102,7 +102,6 @@ namespace ScriptTrainer
             //int maxPage = Config.MapArea.Instance.Count / conunt;
             searchBar();
             container();
-            pageBar();
 
         }
                 
@@ -150,9 +149,12 @@ namespace ScriptTrainer
                 {
                     hr(10);
                 }
-
                 ItemButtons.Add(btn);
             }
+
+            
+            var pageObg = pageBar();
+            ItemButtons.Add(pageObg);
         }
 
         #region[筛选]
@@ -195,25 +197,23 @@ namespace ScriptTrainer
         }
 
         // 分页
-        private static void pageBar()
-        { 
+        private static GameObject pageBar()
+        {
+            
             // 背景
-            GameObject pageObj = UIControls.createUIPanel(Panel, "40", "500");
+            GameObject pageObj = UIControls.createUIPanel(Panel, "40", "350");
             pageObj.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
             pageObj.GetComponent<RectTransform>().localPosition = new Vector3(0, elementY, 0);
 
             // 当前页数 / 总页数
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
 
-            if (uiText == null)
-            {
-                uiText = UIControls.createUIText(pageObj, txtBgSprite, "#ffFFFFFF");
-                uiText.GetComponent<Text>().text = uiText_text;
-                uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
-                // 设置字体
-                uiText.GetComponent<Text>().fontSize = 20;
-                uiText.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-            }
+            uiText = UIControls.createUIText(pageObj, txtBgSprite, "#ffFFFFFF");
+            uiText.GetComponent<Text>().text = uiText_text;
+            uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+            // 设置字体
+            uiText.GetComponent<Text>().fontSize = 20;
+            uiText.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
 
 
             // 上一页
@@ -239,6 +239,8 @@ namespace ScriptTrainer
             });
             nextBtn.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 20);
             nextBtn.GetComponent<RectTransform>().localPosition = new Vector3(100, 0, 0);
+
+            return pageObj;
         }
 
         #endregion

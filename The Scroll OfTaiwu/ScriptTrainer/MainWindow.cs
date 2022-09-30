@@ -168,7 +168,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.4");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.4.1");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -297,7 +297,16 @@ namespace ScriptTrainer
                             {
                                 GMFunc.EditHappiness(Scripts.playerId, count.ConvertToIntDef(100));
                             });
-                        });                        
+                        });
+                        //AddButton("修改名誉", PlayerScripts, () =>
+                        //{
+                        //    // Preset Fame= 126
+                        //    UIWindows.SpawnInputDialog("您想将名誉修改为多少？", "修改", "100", (string count) =>
+                        //    {
+                        //        GameDataBridge.AddDataModification<sbyte>(4, 0, (ulong)Scripts.playerId, 126U, (sbyte)count.ConvertToIntDef(100));
+
+                        //    });
+                        //});
                     }
                     hr();
                     AddH3("基础属性", PlayerScripts);
