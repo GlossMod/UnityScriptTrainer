@@ -183,15 +183,29 @@ namespace ScriptTrainer
             
         }
         
-        public static void ChangeHp()
+        public static void ChangeHp( int charid = 0)
         {
-            UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "200", (string count) =>
+            if (charid == 0)
             {
-                short value = (short) count.ConvertToIntDef(200);
+                UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "200", (string count) =>
+                {
+                    short value = (short)count.ConvertToIntDef(200);
 
-                GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 19U, (short)value);
-                GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 20U, (short)value);
-            });
+                    GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 19U, (short)value);
+                    GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 20U, (short)value);
+                });
+            }
+            else
+            {
+                UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "200", (string count) =>
+                {
+                    short value = (short)count.ConvertToIntDef(200);
+
+                    GameDataBridge.AddDataModification<short>(4, 0, (ulong)charid, 19U, (short)value);
+                    GameDataBridge.AddDataModification<short>(4, 0, (ulong)charid, 20U, (short)value);
+                });
+            }
+
         }
 
         // 修改主要属性
