@@ -62,6 +62,10 @@ namespace ScriptTrainer
                 {
                     Scripts.ChangeAge(Scripts.CurCharacterId);
                 });
+                AddButton("修改血量", NpcPanel, () =>
+                {
+                    Scripts.ChangeHp(Scripts.CurCharacterId);
+                });
                 AddButton("好感度", NpcPanel, () =>
                 {
                     Scripts.ChangeFavor(Scripts.CurCharacterId, Scripts.playerId);
