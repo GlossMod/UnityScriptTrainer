@@ -324,7 +324,7 @@ namespace ScriptTrainer
         {
             UIWindows.SpawnInputDialog("您想修改好感为多少？", "设置", "6000", (string count) =>
             {
-                GameDataBridge.AddMethodCall(-1, 4, 58, charId1, charId2, (short)count.ConvertToIntDef(18));
+                GameDataBridge.AddMethodCall(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangeFavorability, charId1, charId2, (short)count.ConvertToIntDef(6000));
                 //GMFunc.ChangeFavorability(charId1, charId2, (short)count.ConvertToIntDef(18));
             });
 
