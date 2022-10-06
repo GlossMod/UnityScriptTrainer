@@ -13,6 +13,7 @@ using UnityGameUI;
 using GameData.Domains.Character;
 using GameData.Domains.Character.Relation;
 using GameData.Domains.Character.Display;
+using GameData.Serializer;
 
 namespace ScriptTrainer
 {
@@ -47,14 +48,32 @@ namespace ScriptTrainer
         {
             get
             {
-                UI_CharacterMenu ui_CharacterMenuSubPageBase = UIElement.CharacterMenu.UiBaseAs<UI_CharacterMenu>();
-                //int CurCharacterId = Traverse.Create(typeof(UI_CharacterMenu)).Field<int>("CurCharacterId").Value;
+                //GameDataBridge.AddMethodCall<int>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GetNameRelatedData, CurCharacterId);
                 string name = "";
-                foreach (var item in ui_CharacterMenuSubPageBase.Names)
-                {
-                    name += item;
-                }
+
+                //SingletonObject.getInstance<AsynchMethodDispatcher>().AsynchMethodCall<int>(DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GetNameRelatedData, CurCharacterId, (int offset, GameData.Utilities.RawDataPool dataPool) =>
+                //{
+                //    NameRelatedData list = new NameRelatedData();
+                //    Serializer.Deserialize(dataPool, offset, ref list);
+
+                //     name = list.FullName.ToString();
+
+
+                //});
+
+
+
                 return name;
+
+
+                //UI_CharacterMenu ui_CharacterMenuSubPageBase = UIElement.CharacterMenu.UiBaseAs<UI_CharacterMenu>();
+                ////int CurCharacterId = Traverse.Create(typeof(UI_CharacterMenu)).Field<int>("CurCharacterId").Value;
+                //string name = "";
+                //foreach (var item in ui_CharacterMenuSubPageBase.Names)
+                //{
+                //    name += item;
+                //}
+                //return name;
             }
         }
         #endregion
@@ -132,27 +151,23 @@ namespace ScriptTrainer
 
         #region[玩家功能]
 
-        /// <summary>
-        /// 设置伤势
-        /// </summary>
-        /// <param name="isInnerInjury">是否是内伤</param>
-        /// <param name="bodyPartType">身体部位值 (0-胸背；1-腰腹；2-头颅；3-左臂；4-右臂；5-左腿；6-右腿)</param>
-        /// <param name="delta">伤势值 最大6 负数为降低</param>
-        public static void ChangeInjury(bool isInnerInjury, sbyte bodyPartType, sbyte delta)
+        // 设置伤势
+        public static void ChangeInjury(bool isInnerInjury, sbyte bodyPartType, sbyte delta, int charId = 0)
         {
-            //int charId = playerId();
-            GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, 4, 76, playerId, isInnerInjury, bodyPartType, delta);
+            if (charId == 0) charId = playerId;
 
-            //GMFunc.ChangeInjury(playerId, isInnerInjury, bodyPartType, delta);
+            // bodyPartType: 0-胸背；1-腰腹；2-头颅；3-左臂；4-右臂；5-左腿；6-右腿
+            GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangeInjury, charId, isInnerInjury, bodyPartType, delta);
         }
         
         // 设置中毒
-        public static void ChangePoisoned(sbyte poisonType, int changeValue)
+        public static void ChangePoisoned(sbyte poisonType, int changeValue, int charId = 0)
         {
-            //int charId = playerId();
-            GameDataBridge.AddMethodCall<int, sbyte, int>(-1, 4, 77, playerId, poisonType, changeValue);
 
-            //GMFunc.ChangePoisoned(playerId, poisonType, changeValue);
+            if (charId == 0) charId = playerId;
+
+            //poisonType: 0-烈毒；1-郁毒；2-寒毒；3-赤毒；4-腐毒；5-幻毒            
+            GameDataBridge.AddMethodCall<int, sbyte, int>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangePoisonByType, charId, poisonType, changeValue);
         }
 
         // 改变地区恩义?
@@ -222,10 +237,10 @@ namespace ScriptTrainer
                 // 修改主要属性
                 GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 18U, new MainAttributes(attributes));
                 GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 43U, new MainAttributes(attributes));
-            }
-            
+            }            
         }
 
+        // 修改内力
         public static void ChangeNeiLi(int[] allocation)
         {
             Debug.Log($"{allocation[0]}-{allocation[1]}-{allocation[2]}-{allocation[3]}");
@@ -239,13 +254,58 @@ namespace ScriptTrainer
             //GameDataBridge.AddMethodCall<int, NeiliAllocation>(-1, 4, 67, playerId, arg);
         }
 
-        // 编辑基础道德
+        
+        // 解锁所有技艺
+        public static void UnlockAllSkills(int charId = 0)
+        {
+            if (charId == 0) charId = playerId;
+
+            List<GameData.Domains.Character.LifeSkillItem> list_item = new List<GameData.Domains.Character.LifeSkillItem>();
+
+            foreach (var item in Config.LifeSkill.Instance)
+            {
+                Debug.Log($"已学习 {item.Name}");
+                GameData.Domains.Character.LifeSkillItem lifeSkillItem = new GameData.Domains.Character.LifeSkillItem(item.TemplateId, 5);
+                list_item.Add(lifeSkillItem);
+            }
+            GameDataBridge.AddMethodCall<int, List<GameData.Domains.Character.LifeSkillItem>>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_SetLearnedLifeSkills, charId, list_item);
+
+        }
+
+
+        // 编辑基础道德 有 Bug
         public static void ChangeBaseMorality()
         {
             UIWindows.SpawnInputDialog("您想修改道德为多少？", "设置", "18", (string count) =>
             {
                 GMFunc.EditBaseMorality(playerId, count.ConvertToIntDef(18));
             });
+        }
+
+        // 解锁武学 有 Bug
+        public static void UnlockAllArts()
+        {
+            //  Learn Combat Skill
+
+            foreach (var item in CombatSkill.Instance)
+            {
+                Debug.Log($"已学习 {item.Name} - {item.TemplateId}");
+
+                // GmCmd_ForgetCombatSkill(DataContext context, int charId, short skillTemplateId)
+                GameDataBridge.AddMethodCall<int, short>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ForgetCombatSkill, playerId, item.TemplateId);
+
+                // public void GmCmd_RevokeCombatSkill(DataContext context, int charId, List<short> skillTemplateIdList)
+                GameDataBridge.AddMethodCall<int, short>(-1, DomainHelper.DomainIds.Building, GameData.Domains.Building.BuildingDomainHelper.MethodIds.AcceptBuildingBlockRecruitPeople, playerId, item.TemplateId);
+
+                GameDataBridge.AddMethodCall<int, short, sbyte, ushort>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.LearnCombatSkill, playerId, item.TemplateId, 100, 10);
+
+                //GameDataBridge.AddDataModification<ushort>(7, 0, (ulong)new GameData.Domains.CombatSkill.CombatSkillKey(playerId, item.TemplateId), 2U, ushort.MaxValue);
+                //GameDataBridge.AddDataModification<sbyte>(7, 0, (ulong)new GameData.Domains.CombatSkill.CombatSkillKey(playerId, item.TemplateId), 1U, 100);
+
+            }
+
+            
+            // LearnCombatSkill(int charId, short skillId)
         }
 
         #endregion
@@ -286,7 +346,7 @@ namespace ScriptTrainer
         // 绑架NPC
         public static void Kidnap(int charId)
         {
-            GameDataBridge.AddMethodCall<int, int>(-1, 4, 68, playerId, charId);
+            GameDataBridge.AddMethodCall<int, int>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_MakeCharacterKidnapped, playerId, charId);
         }
         // 设置关系
         public static void Relationship(int charIdA, int charIdB)
@@ -316,7 +376,7 @@ namespace ScriptTrainer
 
             UIWindows.SpawnDropdownDialog($"你想让{charIdB}成为你的什么？", "修改", options, (int call) =>
             {
-                GameDataBridge.AddMethodCall<int, int, ushort>(-1, 4, 13, charIdA, charIdB, o_type[call]);
+                GameDataBridge.AddMethodCall<int, int, ushort>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_AddRelation, charIdA, charIdB, o_type[call]);
             });
 
 
@@ -324,61 +384,23 @@ namespace ScriptTrainer
 
         #endregion
 
-        public static string GetCharacterName(int charId)
-        {
-            bool isTaiwu = playerId == charId;
-            NameRelatedData nameRelatedData = new NameRelatedData();
-            ValueTuple<string, string> monasticTitleOrName = NameCenter.GetMonasticTitleOrName(ref nameRelatedData, isTaiwu, false);
-            string item = monasticTitleOrName.Item1;
-            string item2 = monasticTitleOrName.Item2;
-            return item + item2;
-        }
+        //public static void GetCharacterName(int charId, ref string name)
+        //{
+        //    SingletonObject.getInstance<AsynchMethodDispatcher>().AsynchMethodCall<int>(DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GetNameRelatedData, CurCharacterId, (int offset, GameData.Utilities.RawDataPool dataPool) =>
+        //    {
+        //        NameRelatedData list = new NameRelatedData();
+        //        Serializer.Deserialize(dataPool, offset, ref list);
+
+        //        name = list.FullName.ToString();
+
+        //    });
+        //}
 
 
 
         public static void Test()
         {
             Debug.Log(CurCharacterId.ToString());
-
-            //GMFunc.CricketForceWin();
-
-            // 获取名誉相关事件
-            //for (int i = 0; i < FameAction.Instance.Count; i++)
-            //{
-            //    Debug.Log($"{FameAction.Instance[i].Name}, {i}");
-            //}
-
-            // 事件参与者
-            //for (int i = 0; i < EventActors.Instance.Count; i++)
-            //{
-            //    Debug.Log($"{EventActors.Instance[i].Name}, {i}");
-            //}
-
-            // CharacterPropertyReferenced
-            //for (int i = 0; i < Character.Instance.Count; i++)
-            //{
-            //    Debug.Log($"{Character.Instance[i].GivenName}, {Character.Instance[i].TemplateId}");
-            //}
-
-            //foreach (var item in Character.Instance)
-            //{
-            //    Debug.Log($"{item.Surname} {item.GivenName}, {item.TemplateId}");
-            //}
-
-            //foreach (var item in Config.Armor.Instance)
-            //{
-            //    Debug.Log($"{item.Name}, {item.TemplateId}");
-            //}
-
-            //foreach (var item in Config.MapArea.Instance)
-            //{
-            //    Debug.Log($"{item.Name} = {item.TemplateId}");
-            //}
-
-
-            //int a =   Config.CharacterFeature.GetCharacterPropertyBonus(playerId(), ECharacterPropertyReferencedType.AttackSpeed);
-
-            //Debug.Log(a.ToString());
 
         }
     }

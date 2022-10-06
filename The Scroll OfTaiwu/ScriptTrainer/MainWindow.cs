@@ -168,7 +168,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.4.1");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.5");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -216,6 +216,20 @@ namespace ScriptTrainer
                         {
                             GMFunc.UnlockAllStation();
                         });
+                        AddButton("解锁技艺", BasicScripts, () =>
+                        {
+                            Scripts.UnlockAllSkills();
+                        });
+                        hr(10);
+                        AddButton("获取更新", BasicScripts, () =>
+                        {
+                            // 使用默认浏览器打开网站 https://mod.3dmgame.com/mod/188315
+                            System.Diagnostics.Process.Start("https://mod.3dmgame.com/mod/188315");
+                        });
+                        //AddButton("解锁武学", BasicScripts, () =>
+                        //{
+                        //    Scripts.UnlockAllArts();                        
+                        //});
                         //AddButton("探索势力", BasicScripts, () =>
                         //{
                         //    //GMFunc.QuestAllFactionInfos();
@@ -265,6 +279,7 @@ namespace ScriptTrainer
                         });
                     }
                     hr();
+                    AddH3("免费版,倒卖奸商没马", BasicScripts, Color.cyan);
                     //AddH3("其他功能", BasicScripts);
                     //{
                     //    AddButton("测试按钮", BasicScripts, () =>
@@ -617,18 +632,23 @@ namespace ScriptTrainer
         }
 
         // 添加小标题
-        public GameObject AddH3(string text, GameObject panel)
+        public GameObject AddH3(string text, GameObject panel, Color color = default(Color))
         {
             elementX += 40;
 
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
             GameObject uiText = UIControls.createUIText(panel, txtBgSprite, "#FFFFFFFF");
             uiText.GetComponent<Text>().text = text;
-            uiText.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
+            uiText.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);            
+            //uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 30);  // 设置宽度
 
             // 设置字体样式为h3小标题
             uiText.GetComponent<Text>().fontSize = 14;
             uiText.GetComponent<Text>().fontStyle = FontStyle.Bold;
+
+            // 设置字体颜色
+            if (color != default(Color)) uiText.GetComponent<Text>().color = color;
+
             hr();
             elementY += 20;
             elementX += 10;

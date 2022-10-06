@@ -83,21 +83,47 @@ namespace ScriptTrainer
                 });
                 AddButton("可为同道", NpcPanel, () =>
                 {
-                    GMFunc.SetCharacterOrganization(Scripts.CurCharacterId,16);
+                    GMFunc.SetCharacterOrganization(Scripts.CurCharacterId, 16);
+                });
+               
+                AddButton("解锁技艺", NpcPanel, () =>
+                {
+                    Scripts.UnlockAllSkills(Scripts.CurCharacterId);
                 });
                 hr(10);
                 AddButton("绑架他/她", NpcPanel, () =>
                 {
                     Scripts.Kidnap(Scripts.CurCharacterId);
                 });
-                AddButton("与其做爱", NpcPanel, () =>
+                AddButton("共度春宵", NpcPanel, () =>
                 {
                     GMFunc.MakeCharacterHaveSex(Scripts.playerId, Scripts.CurCharacterId, false, 3);
                 });
-                AddButton("强迫做爱", NpcPanel, () =>
+                AddButton("出手重伤", NpcPanel, () =>
                 {
-                    GMFunc.MakeCharacterHaveSex(Scripts.playerId, Scripts.CurCharacterId, true, 3);
+                    for (int i = 0; i <= 6; i++)
+                    {
+                        Scripts.ChangeInjury(true, (sbyte)i, 6, Scripts.CurCharacterId);
+                        Scripts.ChangeInjury(false, (sbyte)i, 6, Scripts.CurCharacterId);
+                    }
+                    for (int i = 0; i <= 5; i++)
+                    {
+                        Scripts.ChangePoisoned((sbyte)i, 1000, Scripts.CurCharacterId);
+                    }
                 });
+                AddButton("治病解毒", NpcPanel, () =>
+                {
+                    for (int i = 0; i <= 6; i++)
+                    {
+                        Scripts.ChangeInjury(true, (sbyte)i, -6, Scripts.CurCharacterId);
+                        Scripts.ChangeInjury(false, (sbyte)i, -6, Scripts.CurCharacterId);
+                    }
+                    for (int i = 0; i <= 5; i++)
+                    {
+                        Scripts.ChangePoisoned((sbyte)i, -1000, Scripts.CurCharacterId);
+                    }
+                });
+                              
                 //AddButton("设为双性恋", NpcPanel, () =>
                 //{
                 //    GMFunc.EditBisexual(Scripts.CurCharacterId, true);
