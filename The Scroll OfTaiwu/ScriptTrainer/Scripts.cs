@@ -200,9 +200,9 @@ namespace ScriptTrainer
         
         public static void ChangeHp()
         {
-            UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "200", (string count) =>
+            UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "1200", (string count) =>
             {
-                short value = (short) count.ConvertToIntDef(200);
+                short value = (short) count.ConvertToIntDef(1200);
 
                 GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 19U, (short)value);
                 GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 20U, (short)value);
@@ -322,9 +322,9 @@ namespace ScriptTrainer
         // 修改好感度
         public static void ChangeFavor(int charId1, int charId2)
         {
-            UIWindows.SpawnInputDialog("您想修改好感为多少？", "设置", "6000", (string count) =>
+            UIWindows.SpawnInputDialog("您想修改好感为多少？", "设置", "10000", (string count) =>
             {
-                GameDataBridge.AddMethodCall(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangeFavorability, charId1, charId2, (short)count.ConvertToIntDef(6000));
+                GameDataBridge.AddMethodCall(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangeFavorability, charId1, charId2, (short)count.ConvertToIntDef(10000));
                 //GMFunc.ChangeFavorability(charId1, charId2, (short)count.ConvertToIntDef(18));
             });
 
@@ -364,7 +364,10 @@ namespace ScriptTrainer
             {
                 GameDataBridge.AddMethodCall<int, int, ushort>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_AddRelation, charIdA, charIdB, o_type[call]);
             });
-
+            UIWindows.SpawnDropdownDialog($"你想让你成为{charIdB}的什么？", "修改", options, (int call) =>
+            {
+                GameDataBridge.AddMethodCall<int, int, ushort>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_AddRelation, charIdB, charIdA, o_type[call]);
+            });
 
         }
 
