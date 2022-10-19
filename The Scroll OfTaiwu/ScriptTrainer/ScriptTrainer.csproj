@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>E:\steam\steamapps\common\The Scroll Of Taiwu\Mod\scirpts\</OutputPath>
+    <OutputPath>F:\steam\steamapps\common\The Scroll Of Taiwu\Mod\scirpts\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>E:\steam\steamapps\workshop\content\838350\2871716599\Plugins\</OutputPath>
+    <OutputPath>F:\steam\steamapps\workshop\content\838350\2871716599\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>

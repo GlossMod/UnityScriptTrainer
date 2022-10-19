@@ -255,7 +255,9 @@ namespace ScriptTrainer
                 list_item.Add(lifeSkillItem);
             }
             GameDataBridge.AddMethodCall<int, List<GameData.Domains.Character.LifeSkillItem>>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_SetLearnedLifeSkills, charId, list_item);
-
+            // 基础 技艺 资质
+            //LifeSkillShorts shorts = new LifeSkillShorts(100, 100, 100);
+            //GameDataBridge.AddDataModification<LifeSkillShorts>(4, 0, (ulong)((long)charId), 30U, shorts);
         }
 
 
