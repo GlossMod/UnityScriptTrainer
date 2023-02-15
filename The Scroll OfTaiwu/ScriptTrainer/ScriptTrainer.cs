@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 namespace ScriptTrainer
 {
 
-    [PluginConfig("ScriptTrainer", "小莫", "1.0.0")]
+    [PluginConfig("ScriptTrainer", "小莫", "1.5.3")]
     public class ScriptTrainer : TaiwuRemakePlugin
     {
         //MainWindow mw;

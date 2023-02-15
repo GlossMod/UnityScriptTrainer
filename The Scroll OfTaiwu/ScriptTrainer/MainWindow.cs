@@ -27,7 +27,7 @@ namespace ScriptTrainer
         public  bool initialized = false;
         public  bool _optionToggle = false;
         private  TooltipGUI toolTipComp = null;
-        public static KeyCode Hot_Key = KeyCode.F9;
+        public static KeyCode Hot_Key = KeyCode.Home;
 
         // UI
         public  AssetBundle testAssetBundle = null;
@@ -168,7 +168,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.5.2");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.5.3");
                      
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
