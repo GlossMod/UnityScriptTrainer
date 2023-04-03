@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>F:\steam\steamapps\common\觅长生\本地Mod测试\ScriptTrainer\plugins\</OutputPath>
+    <OutputPath>F:\steam\steamapps\workshop\content\1189490\2824349934\BepInEx\scripts\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

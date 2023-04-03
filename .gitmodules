@@ -7,3 +7,12 @@
 [submodule "Dyson Sphere Program/ScriptTrainer/UnityGameUI"]
 	path = Dyson Sphere Program/ScriptTrainer/UnityGameUI
 	url = https://github.com/GlossMod/UnityGameUI.git
+[submodule "MiChangSheng/ScriptTrainer/UnityGameUI"]
+	path = MiChangSheng/ScriptTrainer/UnityGameUI
+	url = https://github.com/GlossMod/UnityGameUI.git
+[submodule "Warm Snow/ScriptTrainer/UnityGameUI"]
+	path = Warm Snow/ScriptTrainer/UnityGameUI
+	url = https://github.com/GlossMod/UnityGameUI.git
+[submodule "Warm Snow/UnityGameUI"]
+	path = Warm Snow/UnityGameUI
+	url = https://github.com/GlossMod/UnityGameUI.git

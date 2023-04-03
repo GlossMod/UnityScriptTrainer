@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Steamworks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -11,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace ScriptTrainer
 {
-    internal class MainWindow: MonoBehaviour
+    internal class MainWindow : MonoBehaviour
     {
         #region[声明]
         // Trainer Base
@@ -21,7 +22,7 @@ namespace ScriptTrainer
         public static bool _optionToggle = false;
         private static TooltipGUI toolTipComp = null;
         public static KBEngine.Avatar player;   //获取玩家
-        
+
         // UI
         public static AssetBundle testAssetBundle = null;
         public static GameObject canvas = null;
@@ -37,7 +38,7 @@ namespace ScriptTrainer
             set
             {
                 _optionToggle = value;
-                
+
                 player = Tools.instance.getPlayer();    // 获取玩家
                 NpcWindow.RefreshNpcData();    // 刷新获取Npc
 
@@ -63,12 +64,12 @@ namespace ScriptTrainer
                 return height / 2 - 60;
             }
         }
-        
+
         private static int elementX = initialX;
         private static int elementY = initialY;
         #endregion
 
-        
+
 
         public MainWindow()
         {
@@ -80,27 +81,11 @@ namespace ScriptTrainer
             #region[初始化资源]
             if (testAssetBundle == null)
             {
-                //    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle"))
-                //    {
-                //        testAssetBundle = AssetBundle.LoadFromFile(AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
-                //        if (testAssetBundle == null)
-                //        {
-                //            Debug.Log("AssetBundle 加载失败");
-                //            return;
-                //        }
-                //        // 输出 资源名称
-                //        foreach (var asset in testAssetBundle.GetAllAssetNames())
-                //        {
-                //            Debug.Log("   Asset Name: " + asset.ToString());
-                //        }
 
-                //        Debug.Log("完成");
-                //    }
-                //    else
-                //    {
-                //        Debug.LogWarning("跳过 AssetBundle 加载 - testassetBundle 不存在于:" + AppDomain.CurrentDomain.BaseDirectory + "\\AssetBundles\\testassetbundle");
-                //        Debug.LogWarning("请确保“AssetBundles”文件夹已放入游戏根目录");
-                //    }
+                // 获取当前steam登录的用户
+                // CSteamID steamID = SteamUser.GetSteamID();
+
+
             }
             #endregion
 
@@ -122,8 +107,8 @@ namespace ScriptTrainer
                 initialized = false;
                 return;
             }
-            
-            
+
+
 
             if (canvas == null && player != null)
             {
@@ -149,7 +134,7 @@ namespace ScriptTrainer
                 //entry1.eventID = EventTriggerType.Drag;
                 ////entry1.callback.AddListener((data) => { OnDrag((PointerEventData)data); });
                 //comp1.triggers.Add(entry1);
-                
+
 
                 //EventTrigger comp1 = background.AddComponent<EventTrigger>();
                 //WindowDragHandler comp2 = background.AddComponent<WindowDragHandler>();
@@ -195,6 +180,14 @@ namespace ScriptTrainer
                     {
                         Scripts.AddSeaShengWang();
                     });
+                    //AddButton("龙族声望", BasicScripts, () =>
+                    //{
+                    //    无效
+                    //    Scripts.AddDragonShengWang();
+                    //});                   
+                }
+                hr(10);
+                {
                     AddButton("添加修为", BasicScripts, () =>
                     {
                         Scripts.AddExp();
@@ -213,12 +206,12 @@ namespace ScriptTrainer
                 {
                     AddButton("抽1张卡", BasicScripts, () =>
                     {
-                        
+
                         RoundManager.instance.DrawCard(player);
                     });
                     AddButton("抽3张卡", BasicScripts, () =>
                     {
-                        
+
                         for (int i = 0; i < 3; i++)
                         {
                             RoundManager.instance.DrawCard(player);
@@ -226,7 +219,7 @@ namespace ScriptTrainer
                     });
                     AddButton("3张相同卡", BasicScripts, () =>
                     {
-                        
+
                         int a = UnityEngine.Random.Range(0, 4);
                         for (int i = 0; i < 3; i++)
                         {
@@ -252,10 +245,10 @@ namespace ScriptTrainer
                             {
                                 RoundManager.instance.DrawCard(player, item.CardID);
                             }
-                        });                     
+                        });
                     }
                 }
-                
+
                 #endregion
 
                 #region[玩家属性]
@@ -266,7 +259,7 @@ namespace ScriptTrainer
 
                 AddH3("玩家属性：", PlayerAttributes);
                 {
-                    
+
                     AddInputField("年龄", 150, player.age.ToString(), PlayerAttributes, (string text) =>
                     {
                         player.age = (uint)text.ConvertToIntDef(16);
@@ -290,7 +283,7 @@ namespace ScriptTrainer
                 }
                 hr(10);
                 {
-                    
+
                     AddInputField("悟性", 150, player.wuXin.ToString(), PlayerAttributes, (string text) =>
                     {
                         player.wuXin = (uint)text.ConvertToIntDef(100);
@@ -329,10 +322,10 @@ namespace ScriptTrainer
                         player.HP_Max = text.ConvertToIntDef(1000);
                         player.HP = player.HP_Max;
                         Debug.Log("最大生命值已修改为" + player.HP_Max);
-                    });                    
+                    });
                 }
                 hr();
-                AddH3("灵根属性：",PlayerAttributes);
+                AddH3("灵根属性：", PlayerAttributes);
                 {
                     //string[] LingGengList = { "金", "木", "水", "火", "土" };
                     LingGeng[] LingGengList =
@@ -358,7 +351,7 @@ namespace ScriptTrainer
                     }
 
                 }
-                hr();                
+                hr();
 
                 #endregion
 
@@ -391,7 +384,7 @@ namespace ScriptTrainer
                         });
                     }
                     {
-                        List<string> ChengHao = new List<string> { "无"};
+                        List<string> ChengHao = new List<string> { "无" };
                         foreach (var item in jsonData.instance.ChengHaoJsonData.list)
                         {
                             ChengHao.Add(item["Name"].Str);
@@ -410,7 +403,7 @@ namespace ScriptTrainer
                              */
                             PlayerEx.SetShiLiChengHaoLevel(1, chengHaoLevel);
                             // 设置ID后会自动修改宗门每月俸禄
-                            player.SetChengHaoId(chengHaoLevel);    
+                            player.SetChengHaoId(chengHaoLevel);
 
                             Debug.Log("职位已修改为" + PlayerEx.GetMenPaiChengHao());
                         });
@@ -453,7 +446,7 @@ namespace ScriptTrainer
 
                         num++;
                         // 一行4个
-                        if (num%4 == 0)
+                        if (num % 4 == 0)
                         {
                             hr(10);
                         }
@@ -486,7 +479,7 @@ namespace ScriptTrainer
                                 Debug.Pop($"已设置{item["name"].Str}悟道为最高");
                             });
                             num++;
-                            if(num%6 == 0)
+                            if (num % 6 == 0)
                             {
                                 hr(10);
                             }
@@ -512,7 +505,7 @@ namespace ScriptTrainer
                 GameObject NpcScripts = UIControls.createUIPanel(uiPanel, "410", "600", null);
                 NpcScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
                 NpcScripts.GetComponent<RectTransform>().anchoredPosition = new Vector2(-70, -20);
-                
+
                 NpcWindow npcWindow = new NpcWindow(NpcScripts, elementX, elementY);
 
                 #endregion
@@ -521,7 +514,7 @@ namespace ScriptTrainer
                 // 分割线
                 GameObject DividingLine = UIControls.createUIPanel(uiPanel, (height - 40).ToString(), "10", null);
                 DividingLine.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
-                DividingLine.GetComponent<RectTransform>().anchoredPosition = new Vector3(width / 2 - 200 +80, -20, 0);
+                DividingLine.GetComponent<RectTransform>().anchoredPosition = new Vector3(width / 2 - 200 + 80, -20, 0);
 
                 //// 按钮
                 GameObject NavPanel = UIControls.createUIPanel(uiPanel, (height - 40).ToString(), "40", null);
@@ -579,8 +572,8 @@ namespace ScriptTrainer
 
             return uiText;
         }
-        
-        public static GameObject AddButton(string Text,GameObject panel, UnityAction action)
+
+        public static GameObject AddButton(string Text, GameObject panel, UnityAction action)
         {
             string backgroundColor = "#8C9EFFFF";
             Vector3 localPosition = new Vector3(elementX, elementY, 0);
@@ -675,7 +668,7 @@ namespace ScriptTrainer
             Sprite dropdownDropDownSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#212121FF"));    // 框右侧小点的颜色
             Sprite dropdownCheckmarkSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#8C9EFFFF"));   // 选中时的颜色
             Sprite dropdownMaskSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#E65100FF"));        // 不知道是哪的颜色
-            Color LabelColor =  UIControls.HTMLString2Color("#EFEBE9FF");
+            Color LabelColor = UIControls.HTMLString2Color("#EFEBE9FF");
             GameObject uiDropDown = UIControls.createUIDropDown(panel, dropdownBgSprite, dropdownScrollbarSprite, dropdownDropDownSprite, dropdownCheckmarkSprite, dropdownMaskSprite, options, LabelColor);
             Object.DontDestroyOnLoad(uiDropDown);
             uiDropDown.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
@@ -712,7 +705,7 @@ namespace ScriptTrainer
             ResetCoordinates(true);
             elementX += offsetX;
             elementY -= 50 + offsetY;
-            
+
         }
         // 重置坐标
         public void ResetCoordinates(bool x, bool y = false)

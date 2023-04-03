@@ -28,7 +28,7 @@ namespace ScriptTrainer
             //Harmony.CreateAndPatchAll(typeof(UnityGameUI.WindowDragHandler), null);
             #endregion
 
-            ShowCounter = Config.Bind("修改器快捷键", "Key", new KeyboardShortcut(KeyCode.F9));
+            ShowCounter = Config.Bind("修改器快捷键", "Key", new KeyboardShortcut(KeyCode.Home));
             log.LogMessage("脚本已启动");
 
         }

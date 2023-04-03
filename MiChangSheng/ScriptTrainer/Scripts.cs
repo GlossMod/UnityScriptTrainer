@@ -67,6 +67,25 @@ namespace ScriptTrainer
                 }
             });
         }
+        public static void AddDragonShengWang()
+        {
+            UIWindows.SpawnInputDialog("您想添加多少龙族声望？", "添加", "100", (string money) =>
+            {
+                KBEngine.Avatar player = Tools.instance.getPlayer();
+                if (player != null)
+                {
+                    int n = money.ConvertToIntDef(100);
+                    //PlayerEx.AddSeaShengWang(n);
+                    PlayerEx.AddNingZhouShengWang(n);   // 修改无效
+
+                    UIPopTip.Inst.Pop(string.Format("龙族声望{0}了{1}", n > 0 ? "增加" : "减少", money), n > 0 ? PopTipIconType.上箭头 : PopTipIconType.下箭头);
+                }
+                else
+                {
+                    Debug.Log("玩家不存在");
+                }
+            });
+        }
 
         public static void AddExp()
         {
