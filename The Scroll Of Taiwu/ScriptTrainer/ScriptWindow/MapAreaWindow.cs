@@ -137,9 +137,9 @@ namespace ScriptTrainer
 
                 GameObject btn = AddButton(item.name, Panel, () =>
                 {
-                    UIWindows.SpawnInputDialog($"{item.name}的恩义设为多少? 100 = 10.0%", "修改", "100", (string count) =>
+                    UIWindows.SpawnInputDialog($"{item.name}的恩义设为多少?", "修改", "100", (string count) =>
                     {
-                        Scripts.ChangeSpiritualDebt(item.areaId, count.ConvertToIntDef(100));
+                        Scripts.ChangeSpiritualDebt(item.areaId, count.ConvertToIntDef(100) * 10);
 
                     });
 

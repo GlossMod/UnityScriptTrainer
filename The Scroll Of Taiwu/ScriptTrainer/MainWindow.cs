@@ -168,7 +168,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.5.3");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.5.4");
                      
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -484,7 +484,7 @@ namespace ScriptTrainer
                     //log.LogMessage("Complete!");
                     canvas.SetActive(optionToggle);
                     Debug.Log("修改器初始化完成!");
-                    Debug.Log("按F9可开关修改器菜单");
+                    Debug.Log("按Home可开关修改器菜单");
                 }
                 else
                 {

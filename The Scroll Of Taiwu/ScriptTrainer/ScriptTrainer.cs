@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 namespace ScriptTrainer
 {
 
-    [PluginConfig("ScriptTrainer", "小莫", "1.5.3")]
+    [PluginConfig("ScriptTrainer", "小莫", "1.5.4")]
     public class ScriptTrainer : TaiwuRemakePlugin
     {
         //MainWindow mw;
@@ -49,7 +49,7 @@ namespace ScriptTrainer
             ModManager.GetSetting(base.ModIdStr, "Hot_key", ref hot_Key);
             if (!Enum.TryParse<KeyCode>(hot_Key, out MainWindow.Hot_Key))
             {
-                MainWindow.Hot_Key = KeyCode.F9;
+                MainWindow.Hot_Key = KeyCode.Home;
             }
         }
     }
