@@ -31,54 +31,18 @@ namespace ScriptTrainer
             });
         }
 
-        public static void AddNingZhouShengWang()
+        // 添加声望
+        public static void AddShengWang(int id, string name)
         {
-            UIWindows.SpawnInputDialog("您想添加多少宁州声望？", "添加", "100", (string money) => {
-                //ms.Earn(money.ConvertToIntDef(100000), 14);
-                KBEngine.Avatar player = Tools.instance.getPlayer();
-                if (player != null)
-                {
-                    int n = money.ConvertToIntDef(100);
-                    PlayerEx.AddNingZhouShengWang(n);
-                    UIPopTip.Inst.Pop(string.Format("宁州声望{0}了{1}", n > 0? "增加":"减少" , money), n > 0 ? PopTipIconType.上箭头 : PopTipIconType.下箭头);
-                }
-                else
-                {
-                    Debug.Log("玩家不存在");
-                }
-            });
-        }
-
-        public static void AddSeaShengWang()
-        {
-            UIWindows.SpawnInputDialog("您想添加多少海域声望？", "添加", "100", (string money) =>
-            {
-                //ms.Earn(money.ConvertToIntDef(100000), 14);
-                KBEngine.Avatar player = Tools.instance.getPlayer();
-                if (player != null)
-                {
-                    int n = money.ConvertToIntDef(100);
-                    PlayerEx.AddSeaShengWang(n);
-                    UIPopTip.Inst.Pop(string.Format("海域声望{0}了{1}", n > 0 ? "增加" : "减少", money), n > 0 ? PopTipIconType.上箭头 : PopTipIconType.下箭头);
-                }
-                else
-                {
-                    Debug.Log("玩家不存在");
-                }
-            });
-        }
-        public static void AddDragonShengWang()
-        {
-            UIWindows.SpawnInputDialog("您想添加多少龙族声望？", "添加", "100", (string money) =>
+            UIWindows.SpawnInputDialog($"您想添加多少{name}声望？", "添加", "100", (string money) =>
             {
                 KBEngine.Avatar player = Tools.instance.getPlayer();
                 if (player != null)
                 {
                     int n = money.ConvertToIntDef(100);
-                    //PlayerEx.AddSeaShengWang(n);
-                    PlayerEx.AddNingZhouShengWang(n);   // 修改无效
+                    PlayerEx.AddShengWang(id, n);
 
-                    UIPopTip.Inst.Pop(string.Format("龙族声望{0}了{1}", n > 0 ? "增加" : "减少", money), n > 0 ? PopTipIconType.上箭头 : PopTipIconType.下箭头);
+                    UIPopTip.Inst.Pop(string.Format("{0}声望{1}了{2}", name, n > 0 ? "增加" : "减少", money), n > 0 ? PopTipIconType.上箭头 : PopTipIconType.下箭头);
                 }
                 else
                 {

@@ -174,17 +174,25 @@ namespace ScriptTrainer
 
                     AddButton("宁州声望", BasicScripts, () =>
                     {
-                        Scripts.AddNingZhouShengWang();
+                        Scripts.AddShengWang(0, "宁州");
                     });
                     AddButton("海域声望", BasicScripts, () =>
                     {
-                        Scripts.AddSeaShengWang();
+                        Scripts.AddShengWang(19,"海域");
                     });
-                    //AddButton("龙族声望", BasicScripts, () =>
-                    //{
-                    //    无效
-                    //    Scripts.AddDragonShengWang();
-                    //});                   
+                    AddButton("龙族声望", BasicScripts, () =>
+                    {
+                        
+                        Scripts.AddShengWang(23, "龙族");
+                    });
+                    AddButton("白帝楼声望", BasicScripts, () =>
+                    {
+                        Scripts.AddShengWang(24,"白帝楼");
+                    });
+                    AddButton("风雨楼声望", BasicScripts, () =>
+                    {
+                        Scripts.AddShengWang(10, "风雨楼");
+                    });
                 }
                 hr(10);
                 {
@@ -543,7 +551,7 @@ namespace ScriptTrainer
                 //log.LogMessage("Complete!");
                 canvas.SetActive(optionToggle);
                 Debug.Log("修改器初始化完成!");
-                Debug.Log("按F9可开关修改器菜单");
+                Debug.Log($"按{main.ShowCounter.Value.ToString()}可开关修改器菜单");
             }
             else
             {

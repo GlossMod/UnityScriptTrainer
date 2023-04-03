@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ScriptTrainer
 {
-    [BepInPlugin("aoe.top.plugins.ScriptTrainer", "觅长生 内置修改器", "2.0.0.0")]
+    [BepInPlugin("aoe.top.plugins.ScriptTrainer", "觅长生 内置修改器", "2.1.0.0")]
     public class main : BaseUnityPlugin
     {
         // 窗口相关
@@ -13,7 +13,7 @@ namespace ScriptTrainer
 
         private static BepInEx.Logging.ManualLogSource log;
         // 启动按键
-        private ConfigEntry<BepInEx.Configuration.KeyboardShortcut> ShowCounter { get; set; }
+        public static ConfigEntry<BepInEx.Configuration.KeyboardShortcut> ShowCounter { get; set; }
 
         public void Awake()
         {
