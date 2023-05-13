@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptTrainer", "ScriptTrainer\ScriptTrainer.csproj", "{620E47AC-2D69-4799-BD7A-82319DB6B3CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptTrainer", "ScriptTrainer\ScriptTrainer.csproj", "{365DF044-2368-4359-A4E2-751C73B56CF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{620E47AC-2D69-4799-BD7A-82319DB6B3CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{620E47AC-2D69-4799-BD7A-82319DB6B3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{620E47AC-2D69-4799-BD7A-82319DB6B3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{620E47AC-2D69-4799-BD7A-82319DB6B3CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{365DF044-2368-4359-A4E2-751C73B56CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{365DF044-2368-4359-A4E2-751C73B56CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365DF044-2368-4359-A4E2-751C73B56CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{365DF044-2368-4359-A4E2-751C73B56CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9281F9DC-9A4E-4CF1-A4AD-09A67880E2C1}
+		SolutionGuid = {C091C535-98F0-4215-BD36-A159C1BBD4C5}
 	EndGlobalSection
 EndGlobal

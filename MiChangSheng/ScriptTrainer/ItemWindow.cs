@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityGameUI;
+using static FB;
 using Object = UnityEngine.Object;
 
 namespace ScriptTrainer
@@ -251,10 +252,6 @@ namespace ScriptTrainer
         
         private static GameObject createItemButton(string text, GameObject panel, Texture2D itemIcon, int quality, UnityAction action)
         {
-            // 按钮宽 200 高 50
-            int buttonWidth = 190;
-            int buttonHeight = 50;
-
             // 根据品质设置背景颜色
             string qualityColor = "#FFFFFFFF";
             switch (quality)
@@ -266,43 +263,31 @@ namespace ScriptTrainer
                 case 5: qualityColor = "#FF8A80FF"; break;
             }
 
-
             // 创建一个背景
-            GameObject background = UIControls.createUIPanel(panel, buttonHeight.ToString(), buttonWidth.ToString(), null);            
-            background.GetComponent<Image>().color = UIControls.HTMLString2Color("#455A64FF");
+            GameObject background = UIControls.createUIButton(panel, "#00000633", "", action);
             background.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
+            background.GetComponent<RectTransform>().sizeDelta = new Vector2(180, 45);
+            background.name = "background";
 
-            // 创建图标  60x60
-            Sprite BgSprite = UIControls.createSpriteFrmTexture(itemIcon);
-            //Sprite BgSprite = ResManager.inst.LoadSprite("Item Icon/" + itemIcon);
-            //if (BgSprite == null)
-            //{
-            //    BgSprite = ResManager.inst.LoadSprite("Item Icon/1");
-            //}
-            GameObject icon = UIControls.createUIImage(background, BgSprite);
-            icon.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 40);
-            icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, 0);
-
-            // 创建文字
-            //Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#455A64FF"));
-            //GameObject uiText = UIControls.createUIText(background, txtBgSprite, text);
-            //uiText.GetComponent<Text>().fontSize = 20;
+            // 名称
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
             GameObject uiText = UIControls.createUIText(background, txtBgSprite, qualityColor);
             uiText.GetComponent<Text>().text = text;
-            uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 5, 0);
-
-            // 创建按钮
-            string backgroundColor_btn = "#8C9EFFFF";
-            GameObject button = UIControls.createUIButton(background, backgroundColor_btn, "获取", action, new Vector3());
-            button.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 20);
-            button.GetComponent<RectTransform>().localPosition = new Vector3(-50, -10, 0);
+            uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, -10, 0);
 
 
-            elementX +=200;
+            // 图标
+            Sprite BgSprite = UIControls.createSpriteFrmTexture(itemIcon);
+            GameObject button = UIControls.createUIButton(background, "#00000033", "", action);
+            button.GetComponent<Image>().sprite = BgSprite;
+            RectTransform rt = button.GetComponent<RectTransform>();
+            rt.localPosition = new Vector3(50, 0, 0);
+            rt.sizeDelta = new Vector2(40, 40);
 
-            //return button;
+            elementX += 200;
+
             return background;
+           
         }
 
         private static void hr()

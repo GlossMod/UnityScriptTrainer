@@ -120,9 +120,10 @@ namespace ScriptTrainer
                 // 设置背景
                 GameObject background = UIControls.createUIPanel(canvas, (height + 40).ToString(), (width + 40).ToString(), null);
                 background.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
+                background.AddComponent<WindowDragHandler>();
 
                 // 将面板添加到画布, 请参阅 createUIPanel 了解我们将高度/宽度作为字符串传递的原因
-                uiPanel = UIControls.createUIPanel(canvas, height.ToString(), width.ToString(), null);
+                uiPanel = UIControls.createUIPanel(background, height.ToString(), width.ToString(), null);
                 // 设置背景颜色
                 uiPanel.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
 
@@ -146,7 +147,7 @@ namespace ScriptTrainer
 
 
                 #region[创建标题 和 关闭按钮]
-                AddTitle("【觅长生】内置修改器 By:小莫");
+                AddTitle(background,"【觅长生】内置修改器 By:小莫");
 
                 GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                 {
@@ -563,9 +564,9 @@ namespace ScriptTrainer
         #region[添加组件]
 
         // 添加标题
-        public static GameObject AddTitle(string Title)
+        public static GameObject AddTitle(GameObject parent,string Title)
         {
-            GameObject TitleBackground = UIControls.createUIPanel(canvas, "30", (width - 20).ToString(), null);
+            GameObject TitleBackground = UIControls.createUIPanel(parent, "30", (width - 20).ToString(), null);
             TitleBackground.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
             TitleBackground.GetComponent<RectTransform>().localPosition = new Vector3(0, height / 2 - 30, 0);
 
