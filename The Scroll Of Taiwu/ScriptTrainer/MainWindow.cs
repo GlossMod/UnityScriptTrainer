@@ -155,20 +155,19 @@ namespace ScriptTrainer
 
                     
                     // 将面板添加到画布, 请参阅 createUIPanel 了解我们将高度/宽度作为字符串传递的原因
-                    uiPanel = UIControls.createUIPanel(canvas, height.ToString(), width.ToString(), null);
+                    uiPanel = UIControls.createUIPanel(background, height.ToString(), width.ToString(), null);
                     // 设置背景颜色
                     uiPanel.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
 
                     // 这就是我们将如何挂钩鼠标事件以进行窗口拖动
                     //EventTrigger comp1 = background.AddComponent<EventTrigger>();
-                    //WindowDragHandler comp2 = background.AddComponent<WindowDragHandler>();
-
+                    background.AddComponent<WindowDragHandler>();
 
                     #region[面板元素]
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.5.4");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.1");
                      
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -508,7 +507,7 @@ namespace ScriptTrainer
         // 添加标题
         public GameObject AddTitle(string Title)
         {
-            GameObject TitleBackground = UIControls.createUIPanel(canvas, "30", (width - 20).ToString(), null);
+            GameObject TitleBackground = UIControls.createUIPanel(uiPanel, "30", (width - 20).ToString(), null);
             TitleBackground.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
             TitleBackground.GetComponent<RectTransform>().localPosition = new Vector3(0, height / 2 - 30, 0);
 

@@ -16,3 +16,6 @@
 [submodule "Dyson Sphere Program/ScriptTrainer/UnityGameUI"]
 	path = Dyson Sphere Program/ScriptTrainer/UnityGameUI
 	url = https://github.com/GlossMod/UnityGameUI.git
+[submodule "The Scroll Of Taiwu/ScriptTrainer/UnityGameUI"]
+	path = The Scroll Of Taiwu/ScriptTrainer/UnityGameUI
+	url = https://github.com/GlossMod/UnityGameUI.git
