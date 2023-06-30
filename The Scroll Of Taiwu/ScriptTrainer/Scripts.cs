@@ -1,4 +1,4 @@
-﻿using Config;
+using Config;
 using GameData.Common;
 using GameData.Domains;
 using GameData.Domains.Character;
@@ -152,19 +152,19 @@ namespace ScriptTrainer
         #region[玩家功能]
 
         // 设置伤势
-        public static void ChangeInjury(bool isInnerInjury, sbyte bodyPartType, sbyte delta, int charId = 0)
+        public static void ChangeInjury(bool isInnerInjury, sbyte bodyPartType, sbyte delta, int charId = -1)
         {
-            if (charId == 0) charId = playerId;
+            if (charId == -1) charId = playerId;
 
             // bodyPartType: 0-胸背；1-腰腹；2-头颅；3-左臂；4-右臂；5-左腿；6-右腿
             GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangeInjury, charId, isInnerInjury, bodyPartType, delta);
         }
         
         // 设置中毒
-        public static void ChangePoisoned(sbyte poisonType, int changeValue, int charId = 0)
+        public static void ChangePoisoned(sbyte poisonType, int changeValue, int charId = -1)
         {
 
-            if (charId == 0) charId = playerId;
+            if (charId == -1) charId = playerId;
 
             //poisonType: 0-烈毒；1-郁毒；2-寒毒；3-赤毒；4-腐毒；5-幻毒            
             GameDataBridge.AddMethodCall<int, sbyte, int>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangePoisonByType, charId, poisonType, changeValue);
@@ -179,9 +179,9 @@ namespace ScriptTrainer
         }
 
         // 修改玩家年龄
-        public static void ChangeAge(int charid = 0)            
+        public static void ChangeAge(int charId = -1)            
         {
-            if (charid == 0)
+            if (charId == -1)
             {
                 UIWindows.SpawnInputDialog($"您想将自己修改为多少岁？", "设置", "18", (string count) =>
                 {
@@ -210,9 +210,9 @@ namespace ScriptTrainer
         }
 
         // 修改主要属性
-        public static void ChangeMainAttributes(short[] attributes, int charId = 0)
+        public static void ChangeMainAttributes(short[] attributes, int charId = -1)
         {
-            if (charId == 0)
+            if (charId == -1)
             {
                 // 修改主要属性
                 GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)playerId, 18U, new MainAttributes(attributes));
@@ -242,9 +242,9 @@ namespace ScriptTrainer
 
         
         // 解锁所有技艺
-        public static void UnlockAllSkills(int charId = 0)
+        public static void UnlockAllSkills(int charId = -1)
         {
-            if (charId == 0) charId = playerId;
+            if (charId == -1) charId = playerId;
 
             List<GameData.Domains.Character.LifeSkillItem> list_item = new List<GameData.Domains.Character.LifeSkillItem>();
 
