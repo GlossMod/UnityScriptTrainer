@@ -36,7 +36,7 @@ namespace ScriptTrainer
             //uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 30);
             uiText.GetComponent<RectTransform>().localPosition = new Vector3(-35, 0, 0);
             Text text = uiText.GetComponent<Text>();
-            text.text = "作者;小莫;二次开发：qq1091192337";
+            text.text = "作者;小莫";
             text.alignment = TextAnchor.MiddleLeft;
             text.fontSize = 14;
 
