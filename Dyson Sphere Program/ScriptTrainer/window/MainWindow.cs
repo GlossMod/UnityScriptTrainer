@@ -87,6 +87,7 @@ namespace ScriptTrainer
 
 
         // 创建UI
+        // ReSharper disable Unity.PerformanceAnalysis
         private static void CreateUI()
         {
             if (canvas == null)
@@ -151,7 +152,11 @@ namespace ScriptTrainer
                 {
                     player.mecha.miningSpeed = num;
                 }, 1, 1);
-
+                hr();
+                AddCount(BasicScripts,"机甲制作速度",(int)player.mecha.replicateSpeed,(int num) =>
+                {
+                    player.mecha.replicateSpeed = num;
+                },1,1);
                 //hr();
                 
                 //AddCount(BasicScripts, "研究速度", (int)player.mecha.researchPower, (int num) =>
@@ -207,14 +212,25 @@ namespace ScriptTrainer
 
 
                 #endregion
+                #region[修改配方]
+                ResetCoordinates(true, true);
 
+                GameObject RecipeScripts = UIControls.createUIPanel(background.gameObject, "330", "630", null);
+                RecipeScripts.GetComponent<Image>().color = UIControls.HTMLString2Color("#00000033");
+                RecipeScripts.name = "RecipeScripts";
+
+                new RecipeWindow(RecipeScripts);
+
+
+
+                #endregion
 
                 #region[创建导航栏]
 
                 DSNavigation dSNavigation = new DSNavigation(background.gameObject);
                 dSNavigation.AddTab("基础功能", BasicScripts, true);
                 dSNavigation.AddTab("添加物品", ItemScripts);
-
+                dSNavigation.AddTab("配方修改", RecipeScripts);
                 dSNavigation.Create();
 
                 #endregion
@@ -266,7 +282,7 @@ namespace ScriptTrainer
 
             rt.localPosition = new Vector3(elementX, elementY, 0);
             rt.sizeDelta = new Vector2(width, height);    // 设置按钮大小
-
+            
             elementX += width + 10;
 
 

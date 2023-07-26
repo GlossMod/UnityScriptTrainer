@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using UnityGameUI;
 using static System.Collections.Specialized.BitVector32;
 using Object = UnityEngine.Object;
+// ReSharper disable All
 
 
 namespace ScriptTrainer
@@ -50,6 +51,7 @@ namespace ScriptTrainer
 
         public ItemWindow(GameObject canvas)
         {
+
             itemWindow = UIControls.createUIPanel(canvas, "330", "630");
             itemWindow.GetComponent<Image>().color = UIControls.HTMLString2Color("#00000000");
             itemWindow.name = "itemWindow";
@@ -80,6 +82,7 @@ namespace ScriptTrainer
                 GameObject btn = createItemButton(canvas, item, () =>
                 {
                     GameMain.mainPlayer.package.AddItemStacked(item.ID, ItemConst, 0, out int remainInc);
+                    
                     UIItemup.Up(item.ID, ItemConst);
 
                 });

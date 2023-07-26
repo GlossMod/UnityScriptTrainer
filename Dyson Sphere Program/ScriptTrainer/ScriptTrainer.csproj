@@ -113,6 +113,7 @@
     <Compile Include="UnityGameUI\UINavigation.cs" />
     <Compile Include="UnityGameUI\UIWindows.cs" />
     <Compile Include="UnityGameUI\WindowDragHandler.cs" />
+    <Compile Include="window\RecipeWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
