@@ -22,18 +22,18 @@ namespace ScriptTrainer
     {
         #region[声明]
         // Trainer Base
-        public  GameObject obj = null;
-        public  MainWindow instance;
-        public  bool initialized = false;
-        public  bool _optionToggle = false;
-        private  TooltipGUI toolTipComp = null;
+        public GameObject obj = null;
+        public MainWindow instance;
+        public bool initialized = false;
+        public bool _optionToggle = false;
+        private TooltipGUI toolTipComp = null;
         public static KeyCode Hot_Key = KeyCode.Home;
 
         // UI
-        public  AssetBundle testAssetBundle = null;
-        public  GameObject canvas = null;
-        private  bool isVisible = false;
-        private  GameObject uiPanel = null;
+        public AssetBundle testAssetBundle = null;
+        public GameObject canvas = null;
+        private bool isVisible = false;
+        private GameObject uiPanel = null;
         private static readonly int width = Mathf.Min(Screen.width, 740);
         private static readonly int height = (Screen.height < 400) ? Screen.height : (450);
 
@@ -41,12 +41,13 @@ namespace ScriptTrainer
         public bool optionToggle
         {
             get { return _optionToggle; }
-            set {
+            set
+            {
                 // 设置鼠标显示
                 if (value)
                 {
                     //Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;                    
+                    Cursor.visible = true;
                 }
                 else
                 {
@@ -74,8 +75,8 @@ namespace ScriptTrainer
                 return height / 2 - 60;
             }
         }
-        private  int elementX = initialX;
-        private  int elementY = initialY;
+        private int elementX = initialX;
+        private int elementY = initialY;
         #endregion
 
         #region[初始化]
@@ -111,9 +112,9 @@ namespace ScriptTrainer
             {
                 optionToggle = !optionToggle;
                 Debug.Log("窗口开关状态：" + optionToggle.ToString());
-                 
+
                 // 加载图标资源
-                ItemWindow.LoadAllPacker();                
+                ItemWindow.LoadAllPacker();
 
                 canvas.SetActive(optionToggle);
                 Event.current.Use();
@@ -125,11 +126,11 @@ namespace ScriptTrainer
             {
                 Object.Destroy(canvas);
                 initialized = false;
-            }            
+            }
             //Debug.Log("MainWindow 销毁完毕");
         }
 
-        public  void Initialize()
+        public void Initialize()
         {
             initialized = true;
             instance.CreateUI();
@@ -153,7 +154,7 @@ namespace ScriptTrainer
                     GameObject background = UIControls.createUIPanel(canvas, (height + 40).ToString(), (width + 40).ToString(), null);
                     background.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
 
-                    
+
                     // 将面板添加到画布, 请参阅 createUIPanel 了解我们将高度/宽度作为字符串传递的原因
                     uiPanel = UIControls.createUIPanel(background, height.ToString(), width.ToString(), null);
                     // 设置背景颜色
@@ -167,8 +168,8 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.1");
-                     
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.2");
+
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
                         optionToggle = false;
@@ -177,8 +178,8 @@ namespace ScriptTrainer
                     closeButton.GetComponent<RectTransform>().sizeDelta = new Vector2(20, 20);
                     // 字体颜色为白色
                     closeButton.GetComponentInChildren<Text>().color = UIControls.HTMLString2Color("#FFFFFFFF");
+                    Debug.Log("创建 创建标题 完成");
                     #endregion
-
 
 
                     #region[常用功能]
@@ -287,6 +288,7 @@ namespace ScriptTrainer
                     //    });
                     //}
 
+                    Debug.Log("创建 常用功能 完成");
                     #endregion
 
                     #region[玩家功能]
@@ -326,37 +328,37 @@ namespace ScriptTrainer
                     AddH3("基础属性", PlayerScripts);
                     {
                         short[] attributes = new short[6] { 100, 100, 100, 100, 100, 100 };
-                        AddInputField("脊力", 150 , attributes[0].ToString(), PlayerScripts, (string text) =>
+                        AddInputField("脊力", 150, attributes[0].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[0] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
                         });
-                        AddInputField("灵敏", 150 , attributes[1].ToString(), PlayerScripts, (string text) =>
+                        AddInputField("灵敏", 150, attributes[1].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[1] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
                         });
-                        AddInputField("定力", 150 , attributes[2].ToString(), PlayerScripts, (string text) =>
+                        AddInputField("定力", 150, attributes[2].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[2] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
                         });
-                        AddInputField("体质", 150 , attributes[3].ToString(), PlayerScripts, (string text) =>
+                        AddInputField("体质", 150, attributes[3].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[3] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
                         });
                         hr(10);
-                        AddInputField("根骨", 150 , attributes[4].ToString(), PlayerScripts, (string text) =>
+                        AddInputField("根骨", 150, attributes[4].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[4] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
                         });
-                        AddInputField("悟性", 150 , attributes[5].ToString(), PlayerScripts, (string text) =>
+                        AddInputField("悟性", 150, attributes[5].ToString(), PlayerScripts, (string text) =>
                         {
                             attributes[5] = (short)text.ConvertToIntDef(100);
                             Scripts.ChangeMainAttributes(attributes);
-                        });                        
+                        });
                     }
                     hr();
                     AddH3("编辑内力", PlayerScripts);
@@ -402,6 +404,7 @@ namespace ScriptTrainer
                         //});
                     }
 
+                    Debug.Log("创建 玩家功能 完成");
                     #endregion
 
                     #region[NPC功能]
@@ -412,6 +415,7 @@ namespace ScriptTrainer
 
                     NpcWindow npcWindow = new NpcWindow(NpcScripts, elementX, elementY);
 
+                    Debug.Log("创建 NPC功能 完成");
                     #endregion
 
                     #region[添加物品]
@@ -422,6 +426,7 @@ namespace ScriptTrainer
 
                     ItemWindow itemWindow = new ItemWindow(ItemScripts, elementX, elementY);
 
+                    Debug.Log("创建 添加物品 完成");
                     #endregion
 
                     #region[地区恩义]
@@ -433,6 +438,7 @@ namespace ScriptTrainer
                     MapAreaWindow mapAreaWindow = new MapAreaWindow(MapAreaScripts, elementX, elementY);
 
 
+                    Debug.Log("创建 地区恩义 完成");
                     #endregion
 
                     #region[编辑特性]
@@ -475,6 +481,7 @@ namespace ScriptTrainer
 
                     UINavigation.Initialize(nav, NavPanel);
 
+                    Debug.Log("创建 创建导航栏 完成");
                     #endregion
 
 
@@ -496,7 +503,7 @@ namespace ScriptTrainer
                 Debug.Log(e.Message);
                 initialized = false;
             }
-            
+
         }
 
         #endregion
@@ -638,7 +645,7 @@ namespace ScriptTrainer
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
             GameObject uiText = UIControls.createUIText(panel, txtBgSprite, "#FFFFFFFF");
             uiText.GetComponent<Text>().text = text;
-            uiText.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);            
+            uiText.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
             //uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 30);  // 设置宽度
 
             // 设置字体样式为h3小标题

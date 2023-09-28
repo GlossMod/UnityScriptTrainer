@@ -1,7 +1,7 @@
 # 疯狂游戏大亨2 内置修改器
 
 ### 介绍
-这次修改器我是用最近研究的新型UI创建，
+这次修改器我是用最近研究的新型UI创建.
 由于GUILayout的运行模式问题，会造成游戏性能上的问题；
 现在是用 GameObject 重新写了一遍UI；
 等UI完善后，会单独将 UI做成一个库进行开源。
@@ -55,3 +55,10 @@
 
 1.0 ：
 - 初始发布
+
+
+
+```
+
+dotnet new bep6plugin_unity_mono -n ScriptTrainer -T "netstandard2.0" -U "2022.3.2f1"
+```

@@ -190,9 +190,9 @@ namespace ScriptTrainer
             }
             else
             {
-                UIWindows.SpawnInputDialog($"您想将{charid}修改为多少岁？", "设置", "18", (string count) =>
+                UIWindows.SpawnInputDialog($"您想将{charId}修改为多少岁？", "设置", "18", (string count) =>
                 {
-                    GMFunc.EditActualAge(charid, count.ConvertToIntDef(18));
+                    GMFunc.EditActualAge(charId, count.ConvertToIntDef(18));
                 });
             }
             

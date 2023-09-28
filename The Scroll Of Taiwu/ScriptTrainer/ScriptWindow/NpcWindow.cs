@@ -29,7 +29,7 @@ namespace ScriptTrainer
         private static int conunt = 15;
         // Config.MapArea.Instance.Count / conunt 向下取整
 
-      
+
         private static GameObject ItemPanel;
         private static List<GameObject> ItemButtons = new List<GameObject>();
 
@@ -37,7 +37,7 @@ namespace ScriptTrainer
         public NpcWindow(GameObject panel, int x, int y)
         {
             Panel = panel;
-            initialX = elementX = x ;
+            initialX = elementX = x;
             initialY = elementY = y;
             Initialize();
         }
@@ -81,7 +81,7 @@ namespace ScriptTrainer
                 {
                     GMFunc.SetCharacterOrganization(Scripts.CurCharacterId, 16);
                 });
-               
+
                 AddButton("解锁技艺", NpcPanel, () =>
                 {
                     Scripts.UnlockAllSkills(Scripts.CurCharacterId);
@@ -119,7 +119,7 @@ namespace ScriptTrainer
                         Scripts.ChangePoisoned((sbyte)i, -1000, Scripts.CurCharacterId);
                     }
                 });
-                              
+
                 //AddButton("设为双性恋", NpcPanel, () =>
                 //{
                 //    GMFunc.EditBisexual(Scripts.CurCharacterId, true);
@@ -167,7 +167,7 @@ namespace ScriptTrainer
 
         #region[添加组件]
 
-       
+
 
         public static GameObject AddButton(string Text, GameObject panel, UnityAction action)
         {

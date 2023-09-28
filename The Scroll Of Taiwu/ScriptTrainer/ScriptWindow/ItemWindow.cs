@@ -14,7 +14,7 @@ using Object = UnityEngine.Object;
 namespace ScriptTrainer
 {
     // 物品列表
-    public class ItemWindow: MonoBehaviour
+    public class ItemWindow : MonoBehaviour
     {
         #region[物品列表]
         // 武器
@@ -183,7 +183,7 @@ namespace ScriptTrainer
         private static int type = 0;
         private static int page = 1;
         private static int maxPage = 1;
-        private static int conunt = 15;        
+        private static int conunt = 15;
         private static string searchText = "";
         private static GameObject uiText;
         private static string uiText_text
@@ -277,7 +277,7 @@ namespace ScriptTrainer
                 "武器", "护甲", "饰品", "衣服", "坐骑", "材料", "工艺道具", "食物", "药物", "茶酒", "技能书", "蟋蟀", "其他",
                 //"鸡"
             };
-           
+
 
             // 创建下拉框
             Sprite dropdownBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#212121FF"));      // 背景颜色
@@ -411,7 +411,7 @@ namespace ScriptTrainer
             background.GetComponent<RectTransform>().localPosition = new Vector3(elementX, elementY, 0);
 
             // 创建图标  40 x 40
-           
+
             GameObject icon = UIControls.createUIImage(background, GetLoadedSprite(itemIcon));
             icon.GetComponent<RectTransform>().sizeDelta = new Vector2(40, 40);
             icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(30, 0);
@@ -449,7 +449,7 @@ namespace ScriptTrainer
 
         private static List<ItemData> GetItemData()
         {
-            List<ItemData> m_item = new List<ItemData>() ;
+            List<ItemData> m_item = new List<ItemData>();
 
             int start = (page - 1) * conunt;
             int end = start + conunt;
@@ -501,8 +501,8 @@ namespace ScriptTrainer
 
             return m_item;
         }
-        
-       
+
+
         private static List<ItemData> SetItemData(List<ItemData> m_data_list)
         {
             List<ItemData> item = new List<ItemData>();
@@ -527,7 +527,7 @@ namespace ScriptTrainer
             {
                 end = item.Count;
             }
-            
+
             for (int i = start; i < end; i++)
             {
                 r_item.Add(item[i]);
@@ -545,13 +545,13 @@ namespace ScriptTrainer
 
         public static void LoadAllPacker()
         {
-            var _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, List<string>>>("_runTimeNamesCache").Value;
-            Dictionary<string, List<string>>.Enumerator enumerator = _runTimeNamesCache.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                KeyValuePair<string, List<string>> pair = enumerator.Current;
-                AtlasInfo.Instance.LoadPacker(pair.Key);
-            }
+            //var _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, List<string>>>("_runTimeNamesCache").Value;
+            //Dictionary<string, List<string>>.Enumerator enumerator = _runTimeNamesCache.GetEnumerator();
+            //while (enumerator.MoveNext())
+            //{
+            //    KeyValuePair<string, List<string>> pair = enumerator.Current;
+            //    AtlasInfo.Instance.LoadPacker(pair.Key);
+            //}
         }
 
         private static Sprite GetLoadedSprite(string spriteName)
@@ -560,29 +560,38 @@ namespace ScriptTrainer
             Sprite sprite = default(Sprite);
 
             // LoadConstantPackers
-            var _loadedPackerCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, Dictionary<string, Sprite>>>("_loadedPackerCache").Value;
+            //var _loadedPackerCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, Dictionary<string, Sprite>>>("_loadedPackerCache").Value;
 
-            var _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, List<string>>>("_runTimeNamesCache").Value;
-            Dictionary<string, List<string>>.Enumerator enumerator = _runTimeNamesCache.GetEnumerator();
+            //var _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, List<string>>>("_runTimeNamesCache").Value;
+            //Dictionary<string, List<string>>.Enumerator enumerator = _runTimeNamesCache.GetEnumerator();
+            Dictionary<string, Dictionary<string, Sprite>> _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, Dictionary<string, Sprite>>>("_runTimeNamesCache").Value;
 
-            while (enumerator.MoveNext())
+            foreach (KeyValuePair<string, Dictionary<string, Sprite>> item in _runTimeNamesCache)
             {
-                KeyValuePair<string, List<string>> pair = enumerator.Current;
-                if (pair.Value.Contains(spriteName))
+                if (item.Value.TryGetValue(spriteName, out sprite))
                 {
-                    
-
-                    if (_loadedPackerCache.TryGetValue(pair.Key, out map) && map.TryGetValue(spriteName, out sprite))
-                    {
-                        return sprite;
-                    }
+                    return sprite;
                 }
             }
-            if (sprite == default(Sprite))
-            {
-                //Debug.Log($"未找到图标 {spriteName}");
-            }
-            
+
+            //while (enumerator.MoveNext())
+            //{
+            //    KeyValuePair<string, List<string>> pair = enumerator.Current;
+            //    if (pair.Value.Contains(spriteName))
+            //    {
+
+
+            //        if (_loadedPackerCache.TryGetValue(pair.Key, out map) && map.TryGetValue(spriteName, out sprite))
+            //        {
+            //            return sprite;
+            //        }
+            //    }
+            //}
+            //if (sprite == default(Sprite))
+            //{
+            //    //Debug.Log($"未找到图标 {spriteName}");
+            //}
+
             return sprite;
         }
 
@@ -614,10 +623,10 @@ namespace ScriptTrainer
         #region[类型强制转换]
 
         public static explicit operator ItemData(MiscItem item)
-        {            
+        {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-        
+
         public static explicit operator ItemData(CricketItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
@@ -627,43 +636,43 @@ namespace ScriptTrainer
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(WeaponItem item)
+        public static explicit operator ItemData(WeaponItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(ArmorItem item)
+        public static explicit operator ItemData(ArmorItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(AccessoryItem item)
+        public static explicit operator ItemData(AccessoryItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(ClothingItem item)
+        public static explicit operator ItemData(ClothingItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(CarrierItem item)
+        public static explicit operator ItemData(CarrierItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(MaterialItem item)
+        public static explicit operator ItemData(MaterialItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(CraftToolItem item)
+        public static explicit operator ItemData(CraftToolItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(FoodItem item)
+        public static explicit operator ItemData(FoodItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(MedicineItem item)
+        public static explicit operator ItemData(MedicineItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
-         public static explicit operator ItemData(TeaWineItem item)
+        public static explicit operator ItemData(TeaWineItem item)
         {
             return new ItemData(item.TemplateId, item.Name, item.Icon, item.Desc, item.Grade, item.ItemSubType, item.ItemType);
         }
