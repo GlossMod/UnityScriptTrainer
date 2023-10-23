@@ -11,3 +11,4 @@
  - [暖雪](https://mod.3dmgame.com/mod/181716)
  - [疯狂游戏大亨2](https://mod.3dmgame.com/mod/188197)
  - [太吾绘卷](https://mod.3dmgame.com/mod/188315)
+ - [犹格索托斯的庭院](https://mod.3dmgame.com/mod/203152)
