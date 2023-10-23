@@ -1,0 +1,12 @@
+{
+  "name": "yog-sothoths-yard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "dotnet build -o \"F:\\steam\\steamapps\\common\\Yog-Sothoths Yard\\BepInEx\\scripts\" ScriptTrainer",
+    "run": "dotnet run -c release ScriptTrainer"
+  },
+  "author": "小莫",
+  "license": "ISC"
+}
