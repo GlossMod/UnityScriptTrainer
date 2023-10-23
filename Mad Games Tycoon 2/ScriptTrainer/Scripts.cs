@@ -165,9 +165,20 @@ public class Scripts
     }
 
     // 我的所有游戏最高人气
-    public static void MaxHype(bool state)
+    public static void MaxHype()
     {
-        ScriptPatch.setingsMaxHype = state;
+        UIWindows.SpawnInputDialog("修改游戏人气", "添加", "100", (string fans) =>
+       {
+           // 修改游戏人气
+            ScriptPatch.setingsMaxHype1 = fans.ConvertToFloatDef(100);
+       });
+        UIWindows.SpawnInputDialog("修改主机人气", "添加", "100", (string fans) =>
+       {
+           // 修改主机人气
+           ScriptPatch.setingsMaxHype2 = fans.ConvertToFloatDef(100);
+       });
+
+        // ScriptPatch.setingsMaxHype = state;
         // GameObject[] array = GameObject.FindGameObjectsWithTag("Game");
         // foreach (var item in array)
         // {
@@ -225,9 +236,21 @@ public class Scripts
     // 主机销量倍率
     public static void HostSalesRatio()
     {
-        UIWindows.SpawnInputDialog("销量乘数", "确定", "10", (string fans) =>
+        UIWindows.SpawnInputDialog("销量乘数", "确定", "10000", (string fans) =>
        {
-           ScriptPatch.setingsHostSalesRatio = fans.ConvertToFloatDef(10);
+           ScriptPatch.setingsHostSalesRatio = fans.ConvertToFloatDef(10000);
        });
+    }
+
+    public static void AcquisitionCompany(bool state)
+    {
+        ScriptPatch.setingsAcquisitionCompany = state;
+        // // publisherScript[] ps = Ms.arrayPublisherScripts;
+        // foreach (var item in Ms.arrayPublisherScripts)
+        // {
+        //     Debug.Log(item.GetName());
+        //     item.lockToBuy = 0;
+        //     item.GetMoneyExklusiv();
+        // }
     }
 }

@@ -16,6 +16,9 @@ public class BasicScripts
         Components.AddButton("重新上市", panel, Scripts.Relist);
         Components.Hr();
         Components.AddButton("主机销量倍率", panel, Scripts.HostSalesRatio);
+        Components.AddButton("最高热度",  panel,   Scripts.MaxHype);
+
+
 
         Components.Hr();
         {
@@ -37,7 +40,9 @@ public class BasicScripts
         Components.AddToggle("全能开发", 150, panel, Scripts.AllKnow);
         Components.AddToggle("无限储存空间", 150, panel, Scripts.InfiniteSpace);
         Components.AddToggle("无限服务器空间", 150, panel, Scripts.InfiniteServerplatz);
-        Components.AddToggle("最高热度", 150, panel, Scripts.MaxHype);
+        // Components.AddToggle("最高热度", 150, panel, Scripts.MaxHype);
+        Components.Hr();
+        Components.AddToggle("免费收购", 150, panel, Scripts.AcquisitionCompany);
 
         #endregion
 

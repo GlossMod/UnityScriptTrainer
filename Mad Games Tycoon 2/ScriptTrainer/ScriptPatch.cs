@@ -15,10 +15,11 @@ public class ScriptPatch
     public static bool settingsNoSalary = false;
     public static bool setingsAllKnow = false;
     // public static bool setingsMaxPopularity = false;
-    public static bool setingsMaxHype = false;
+    public static float setingsMaxHype1 = 1f;
+    public static float setingsMaxHype2 = 1f;
     public static bool setingsInfiniteSpace = false;
     public static bool setingsInfiniteServerplatz = false;
-    // public static bool setingsPlatformSell = false;
+    public static bool setingsAcquisitionCompany = false;
     #endregion
 
 
@@ -69,10 +70,10 @@ public class ScriptPatch
     public static void GGetHype(ref float __result, gameScript __instance)
     {
         // 游戏热度最高
-        if (setingsMaxHype && __instance.IsMyGame())
+        if (Mathf.RoundToInt(setingsMaxHype1) != 1 && __instance.IsMyGame())
         {
-            __instance.hype = 1000f;
-            __result = 1000f;
+            __instance.hype = setingsMaxHype1;
+            __result = setingsMaxHype1;
         }
     }
 
@@ -81,10 +82,10 @@ public class ScriptPatch
     public static void PGetHype(ref float __result, platformScript __instance)
     {
         // 主机热度最高
-        if (setingsMaxHype && !__instance.OwnerIsNPC())
+        if (Mathf.RoundToInt(setingsMaxHype2) != 1 && !__instance.OwnerIsNPC())
         {
-            __instance.hype = 1000f;
-            __result = 1000f;
+            __instance.hype = setingsMaxHype2;
+            __result = setingsMaxHype2;
         }
 
         if (!__instance.OwnerIsNPC() && Mathf.RoundToInt(setingsHostSalesRatio) != 1)
@@ -94,18 +95,6 @@ public class ScriptPatch
             Debug.Log(__instance.performancePoints);
         }
     }
-
-    // [HarmonyPrefix]
-    // [HarmonyPatch(typeof(platformScript), "GetPriceAbzug")]
-    // public static void GetPriceAbzug(ref float __result, platformScript __instance)
-    // {
-    //     if (!__instance.OwnerIsNPC() && Mathf.RoundToInt(setingsHostSalesRatio) != 1)
-    //     {
-    //         // 控制主机销量
-    //         __instance.performancePoints = Mathf.RoundToInt(setingsHostSalesRatio);
-    //         Debug.Log(__instance.performancePoints);
-    //     }
-    // }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(roomScript), nameof(roomScript.UpdateListInventar))]
@@ -121,5 +110,17 @@ public class ScriptPatch
         if (setingsInfiniteServerplatz) Traverse.Create(__instance).Field("serverplatz").SetValue(999999999);
     }
 
+    // [HarmonyPostfix]
+    // [HarmonyPatch(typeof(publisherScript), nameof(publisherScript.GetFirmenwert))]
+    // public static void GetMoneyExklusiv(ref long __result, publisherScript __instance)
+    // {
+    //     // 免费收购公司
+    //     if (setingsAcquisitionCompany)
+    //     {
+
+    //         __instance.lockToBuy = 0;
+    //         __result = 100;
+    //     }
+    // }
 
 }
