@@ -41,14 +41,18 @@ namespace ScriptTrainer
         public bool optionToggle
         {
             get { return _optionToggle; }
-            set {
+            set 
+            {
                 // 设置鼠标显示
-                if (value) {
+                if (value) 
+                {
                     //Cursor.lockState = CursorLockMode.None;
                     // This is cached for situations where cursor was visible before opening mod menu.
                     cursorWasVisible = Cursor.visible;
                     Cursor.visible = true;
-                } else {
+                } 
+                else 
+                {
                     Cursor.visible = cursorWasVisible;
                 }
                 NpcWindow.Initialize();
