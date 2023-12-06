@@ -36,22 +36,20 @@ namespace ScriptTrainer
         private GameObject uiPanel = null;
         private static readonly int width = Mathf.Min(Screen.width, 740);
         private static readonly int height = (Screen.height < 400) ? Screen.height : (450);
-
+        private bool cursorWasVisible;
         // 界面开关
         public bool optionToggle
         {
             get { return _optionToggle; }
-            set
-            {
+            set {
                 // 设置鼠标显示
-                if (value)
-                {
+                if (value) {
                     //Cursor.lockState = CursorLockMode.None;
+                    // This is cached for situations where cursor was visible before opening mod menu.
+                    cursorWasVisible = Cursor.visible;
                     Cursor.visible = true;
-                }
-                else
-                {
-                    Cursor.visible = false;
+                } else {
+                    Cursor.visible = cursorWasVisible;
                 }
                 NpcWindow.Initialize();
                 MapAreaWindow.container();
@@ -500,7 +498,8 @@ namespace ScriptTrainer
             }
             catch (Exception e)
             {
-                Debug.Log(e.Message);
+                // Use ToString() to print whole stacktrace; print to Unity Log for better visibility
+                Debug.LogError(e.ToString());
                 initialized = false;
             }
 

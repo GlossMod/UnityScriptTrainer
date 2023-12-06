@@ -564,7 +564,7 @@ namespace ScriptTrainer
 
             //var _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, List<string>>>("_runTimeNamesCache").Value;
             //Dictionary<string, List<string>>.Enumerator enumerator = _runTimeNamesCache.GetEnumerator();
-            Dictionary<string, Dictionary<string, Sprite>> _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, Dictionary<string, Sprite>>>("_runTimeNamesCache").Value;
+            Dictionary<string, Dictionary<string, Sprite>> _runTimeNamesCache = Traverse.Create(AtlasInfo.Instance).Field<Dictionary<string, Dictionary<string, Sprite>>>("_runTimeCache").Value;
 
             foreach (KeyValuePair<string, Dictionary<string, Sprite>> item in _runTimeNamesCache)
             {
