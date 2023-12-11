@@ -21,26 +21,23 @@
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
         <PackageReference Include="UnityEngine.Modules" Version="2020.3.22" IncludeAssets="compile" />
     </ItemGroup>
+    <PropertyGroup>
+        <game_Location>F:\steam\steamapps\common\WarmSnow</game_Location>
+        <game_Data>WarmSnow_Data</game_Data>
+    </PropertyGroup>
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2"
             PrivateAssets="all" />
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>libs\UnityEngine.UI.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.UIModule">
-            <HintPath>libs\UnityEngine.UIModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Assembly-CSharp">
-            <HintPath>libs\Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>libs\Assembly-CSharp-firstpass.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Assembly-CSharp.dll"
+            Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Assembly-CSharp-firstpass.dll"
+            Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\netstandard.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Unity.*.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\UnityEngine.*.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Mono.*.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\System.*.dll" Private="False" />
     </ItemGroup>
 </Project>

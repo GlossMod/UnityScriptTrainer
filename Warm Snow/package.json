@@ -1,0 +1,11 @@
+{
+  "name": "mgt2st",
+  "version": "1.0.0",
+  "description": "这次修改器我是用最近研究的新型UI创建",
+  "scripts": {
+    "build": "dotnet build -o \"F:\\steam\\steamapps\\common\\WarmSnow\\BepInEx\\scripts\" ScriptTrainer",
+    "run": "dotnet run -c release ScriptTrainer"
+  },
+  "author": "小莫",
+  "license": "ISC"
+}
