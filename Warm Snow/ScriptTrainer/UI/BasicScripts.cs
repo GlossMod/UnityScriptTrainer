@@ -30,11 +30,17 @@ public class BasicScripts
                 player.playerParameter.EXTRA_ATTACK_SPEED = float.Parse(text);
             });
 
+
             Components.Hr();
 
             Components.AddInputField("生命值", 150, player.playerParameter.MAX_HP.ToString(), panel, (string text) =>
             {
                 player.playerParameter.MAX_HP = float.Parse(text);
+            });
+
+            Components.AddInputField("攻击力", 150, player.playerParameter.ATK_MEELE.ToString(), panel, (string text) =>
+            {
+                player.playerParameter.ATK_MEELE = float.Parse(text);
             });
 
             Components.Hr();
