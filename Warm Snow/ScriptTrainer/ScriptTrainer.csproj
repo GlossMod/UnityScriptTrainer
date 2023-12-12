@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net47</TargetFramework>
         <AssemblyName>ScriptTrainer</AssemblyName>
-        <Description>暖雪 内置修改器</Description>
+        <Description>内置修改器</Description>
         <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>

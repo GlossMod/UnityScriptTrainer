@@ -19,74 +19,35 @@
         <Optimize>true</Optimize>
         <Deterministic>true</Deterministic>
     </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Core" Version="5.*" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+        <PackageReference Include="UnityEngine.Modules" Version="2020.3.22" IncludeAssets="compile" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
         <!-- <PackageReference Include="rainbowblood.UniverseLib.Mono" Version="2.0.0" /> -->
         <PackageReference Include="UnityEngine.Modules" Version="2022.3.2" IncludeAssets="compile" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="BepInEx">
-            <HintPath>..\libs\BepInEx.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="BepInEx.Harmony">
-            <HintPath>..\libs\BepInEx.Harmony.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="0Harmony">
-            <HintPath>..\libs\0Harmony.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Assembly-CSharp">
-            <HintPath>..\libs\Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>..\libs\Assembly-CSharp-firstpass.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Mono.Cecil">
-            <HintPath>..\libs\Mono.Cecil.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Mono.Cecil.Mdb">
-            <HintPath>..\libs\Mono.Cecil.Mdb.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Mono.Cecil.Pdb">
-            <HintPath>..\libs\Mono.Cecil.Pdb.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Mono.Cecil.Rocks">
-            <HintPath>..\libs\Mono.Cecil.Rocks.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath>..\libs\UnityEngine.IMGUIModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.InputLegacyModule">
-            <HintPath>..\libs\UnityEngine.InputLegacyModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>..\libs\UnityEngine.TextRenderingModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.UI">
-            <HintPath>..\libs\UnityEngine.UI.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.UIModule">
-            <HintPath>..\libs\UnityEngine.UIModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
-
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2"
             PrivateAssets="all" />
+    </ItemGroup>
+    <PropertyGroup>
+        <game_Location>F:\steam\steamapps\common\Mad Games Tycoon 2</game_Location>
+        <game_Data>Mad Games Tycoon 2_Data</game_Data>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Assembly-CSharp.dll"
+            Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Assembly-CSharp-firstpass.dll"
+            Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\netstandard.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Unity.*.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\UnityEngine.*.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\Mono.*.dll" Private="False" />
+        <Reference Include="$(game_Location)\$(game_Data)\Managed\System.*.dll" Private="False" />
     </ItemGroup>
 </Project>
