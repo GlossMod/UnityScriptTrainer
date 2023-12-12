@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ScriptTrainer
 {
-    [BepInPlugin("aoe.top.plugins.ScriptTrainer", "觅长生 内置修改器", "2.1.0.0")]
+    [BepInPlugin("aoe.top.plugins.ScriptTrainer", "觅长生 内置修改器", "2.3")]
     public class main : BaseUnityPlugin
     {
         // 窗口相关
@@ -20,7 +20,7 @@ namespace ScriptTrainer
             mw = new MainWindow();
             log = Logger;
         }
-        
+
         public void Start()
         {
             #region[注入游戏补丁]

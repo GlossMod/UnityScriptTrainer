@@ -20,13 +20,13 @@ namespace ScriptTrainer
         public static MainWindow instance;
         public static bool initialized = false;
         public static bool _optionToggle = false;
-        private static TooltipGUI toolTipComp = null;
+        // private static TooltipGUI toolTipComp = null;
         public static KBEngine.Avatar player;   //获取玩家
 
         // UI
         public static AssetBundle testAssetBundle = null;
         public static GameObject canvas = null;
-        private static bool isVisible = false;
+        // private static bool isVisible = false;
         private static GameObject uiPanel = null;
         private static readonly int width = Mathf.Min(Screen.width, 740);
         private static readonly int height = (Screen.height < 400) ? Screen.height : (450);
@@ -102,7 +102,7 @@ namespace ScriptTrainer
             {
                 player = Tools.instance.getPlayer();    // 获取玩家 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 initialized = false;
                 return;
@@ -147,7 +147,7 @@ namespace ScriptTrainer
 
 
                 #region[创建标题 和 关闭按钮]
-                AddTitle(background,"【觅长生】内置修改器 By:小莫");
+                AddTitle(background, "【觅长生】内置修改器 By:小莫");
 
                 GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                 {
@@ -179,16 +179,16 @@ namespace ScriptTrainer
                     });
                     AddButton("海域声望", BasicScripts, () =>
                     {
-                        Scripts.AddShengWang(19,"海域");
+                        Scripts.AddShengWang(19, "海域");
                     });
                     AddButton("龙族声望", BasicScripts, () =>
                     {
-                        
+
                         Scripts.AddShengWang(23, "龙族");
                     });
                     AddButton("白帝楼声望", BasicScripts, () =>
                     {
-                        Scripts.AddShengWang(24,"白帝楼");
+                        Scripts.AddShengWang(24, "白帝楼");
                     });
                     AddButton("风雨楼声望", BasicScripts, () =>
                     {
@@ -547,7 +547,7 @@ namespace ScriptTrainer
 
                 #endregion
 
-                isVisible = true;
+                // isVisible = true;
 
                 //log.LogMessage("Complete!");
                 canvas.SetActive(optionToggle);
@@ -564,7 +564,7 @@ namespace ScriptTrainer
         #region[添加组件]
 
         // 添加标题
-        public static GameObject AddTitle(GameObject parent,string Title)
+        public static GameObject AddTitle(GameObject parent, string Title)
         {
             GameObject TitleBackground = UIControls.createUIPanel(parent, "30", (width - 20).ToString(), null);
             TitleBackground.GetComponent<Image>().color = UIControls.HTMLString2Color("#2D2D30FF");
