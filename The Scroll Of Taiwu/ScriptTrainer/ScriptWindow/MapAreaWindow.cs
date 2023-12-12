@@ -14,7 +14,7 @@ using Object = UnityEngine.Object;
 
 namespace ScriptTrainer
 {
-    public class MapAreaWindow: MonoBehaviour
+    public class MapAreaWindow : MonoBehaviour
     {
         #region[全局参数]
         private static GameObject Panel;
@@ -23,7 +23,7 @@ namespace ScriptTrainer
         private static int elementX;
         private static int elementY;
 
-        private static int type = 0;
+        // private static int type = 0;
         private static int page = 1;
         private static int conunt = 36;
         // Config.MapArea.Instance.Count / conunt 向下取整
@@ -62,11 +62,12 @@ namespace ScriptTrainer
                     return new List<MapAreaList>();
                 }
 
-                
+
             }
         }
 
-        private static int maxPage {
+        private static int maxPage
+        {
             get
             {
                 return (int)Math.Ceiling((double)MapArea.Count / conunt);
@@ -82,7 +83,7 @@ namespace ScriptTrainer
             }
         }
 
-        private static GameObject ItemPanel;
+        // private static GameObject ItemPanel;
         private static List<GameObject> ItemButtons = new List<GameObject>();
 
         #endregion
@@ -104,7 +105,7 @@ namespace ScriptTrainer
             container();
 
         }
-                
+
 
         public static void container()
         {
@@ -124,7 +125,7 @@ namespace ScriptTrainer
                 ItemButtons.Add(btn);
                 return;
             }
-            
+
 
             int start = (page - 1) * conunt;
             int end = start + conunt;
@@ -152,7 +153,7 @@ namespace ScriptTrainer
                 ItemButtons.Add(btn);
             }
 
-            
+
             var pageObg = pageBar();
             ItemButtons.Add(pageObg);
         }
@@ -199,7 +200,7 @@ namespace ScriptTrainer
         // 分页
         private static GameObject pageBar()
         {
-            
+
             // 背景
             GameObject pageObj = UIControls.createUIPanel(Panel, "40", "350");
             pageObj.GetComponent<Image>().color = UIControls.HTMLString2Color("#424242FF");
@@ -300,8 +301,8 @@ namespace ScriptTrainer
         }
 
         #endregion
-        
-        
+
+
 
     }
 

@@ -26,13 +26,13 @@ namespace ScriptTrainer
         public MainWindow instance;
         public bool initialized = false;
         public bool _optionToggle = false;
-        private TooltipGUI toolTipComp = null;
+        // private TooltipGUI toolTipComp = null;
         public static KeyCode Hot_Key = KeyCode.Home;
 
         // UI
         public AssetBundle testAssetBundle = null;
         public GameObject canvas = null;
-        private bool isVisible = false;
+        // private bool isVisible = false;
         private GameObject uiPanel = null;
         private static readonly int width = Mathf.Min(Screen.width, 740);
         private static readonly int height = (Screen.height < 400) ? Screen.height : (450);
@@ -170,7 +170,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.2");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.3");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
@@ -487,7 +487,7 @@ namespace ScriptTrainer
                     #endregion
 
 
-                    isVisible = true;
+                    // isVisible = true;
 
                     //log.LogMessage("Complete!");
                     canvas.SetActive(optionToggle);

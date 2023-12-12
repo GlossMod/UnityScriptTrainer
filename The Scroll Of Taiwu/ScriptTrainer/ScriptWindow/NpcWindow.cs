@@ -1,11 +1,4 @@
-﻿using System;
-using Config;
-using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -24,13 +17,13 @@ namespace ScriptTrainer
         private static int elementX;
         private static int elementY;
 
-        private static int type = 0;
-        private static int page = 1;
-        private static int conunt = 15;
+        // private static int type = 0;
+        // private static int page = 1;
+        // private static int conunt = 15;
         // Config.MapArea.Instance.Count / conunt 向下取整
 
 
-        private static GameObject ItemPanel;
+        // private static GameObject ItemPanel;
         private static List<GameObject> ItemButtons = new List<GameObject>();
 
         #endregion

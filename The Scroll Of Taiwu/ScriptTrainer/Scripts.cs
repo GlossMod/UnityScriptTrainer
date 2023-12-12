@@ -6,14 +6,8 @@ using GameData.GameDataBridge;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityGameUI;
-using GameData.Domains.Character;
 using GameData.Domains.Character.Relation;
-using GameData.Domains.Character.Display;
-using GameData.Serializer;
 
 namespace ScriptTrainer
 {
@@ -115,7 +109,7 @@ namespace ScriptTrainer
             UIWindows.SpawnInputDialog("您想要添加多少织物？", "添加", "1000", (string count) =>
             {
                 AddResource(4, count);
-            });           
+            });
         }
         public static void AddPlayerMedicine()
         {
@@ -141,7 +135,7 @@ namespace ScriptTrainer
         }
 
 
-        private static void  AddResource(sbyte type, string count)
+        private static void AddResource(sbyte type, string count)
         {
             Traverse.Create(typeof(GMFunc)).Method("AddResource", type, count.ConvertToIntDef(1000)).GetValue();
 
@@ -159,7 +153,7 @@ namespace ScriptTrainer
             // bodyPartType: 0-胸背；1-腰腹；2-头颅；3-左臂；4-右臂；5-左腿；6-右腿
             GameDataBridge.AddMethodCall<int, bool, sbyte, sbyte>(-1, DomainHelper.DomainIds.Character, CharacterDomainHelper.MethodIds.GmCmd_ChangeInjury, charId, isInnerInjury, bodyPartType, delta);
         }
-        
+
         // 设置中毒
         public static void ChangePoisoned(sbyte poisonType, int changeValue, int charId = -1)
         {
@@ -179,7 +173,7 @@ namespace ScriptTrainer
         }
 
         // 修改玩家年龄
-        public static void ChangeAge(int charId = -1)            
+        public static void ChangeAge(int charId = -1)
         {
             if (charId == -1)
             {
@@ -195,14 +189,14 @@ namespace ScriptTrainer
                     GMFunc.EditActualAge(charId, count.ConvertToIntDef(18));
                 });
             }
-            
+
         }
-        
+
         public static void ChangeHp()
         {
             UIWindows.SpawnInputDialog("您想将血量设置为多少？", "设置", "1200", (string count) =>
             {
-                short value = (short) count.ConvertToIntDef(1200);
+                short value = (short)count.ConvertToIntDef(1200);
 
                 GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 19U, (short)value);
                 GameDataBridge.AddDataModification<short>(4, 0, (ulong)playerId, 20U, (short)value);
@@ -223,7 +217,7 @@ namespace ScriptTrainer
                 // 修改主要属性
                 GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 18U, new MainAttributes(attributes));
                 GameDataBridge.AddDataModification<MainAttributes>(4, 0, (ulong)charId, 43U, new MainAttributes(attributes));
-            }            
+            }
         }
 
         // 修改内力
@@ -240,7 +234,7 @@ namespace ScriptTrainer
             //GameDataBridge.AddMethodCall<int, NeiliAllocation>(-1, 4, 67, playerId, arg);
         }
 
-        
+
         // 解锁所有技艺
         public static void UnlockAllSkills(int charId = -1)
         {
@@ -292,7 +286,7 @@ namespace ScriptTrainer
 
             }
 
-            
+
             // LearnCombatSkill(int charId, short skillId)
         }
 

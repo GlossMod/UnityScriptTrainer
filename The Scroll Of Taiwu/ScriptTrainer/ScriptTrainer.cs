@@ -11,12 +11,12 @@ using Object = UnityEngine.Object;
 namespace ScriptTrainer
 {
 
-    [PluginConfig("ScriptTrainer", "小莫", "1.5.4")]
+    [PluginConfig("ScriptTrainer", "小莫", "1.6.3")]
     public class ScriptTrainer : TaiwuRemakePlugin
     {
         //MainWindow mw;
         private static GameObject gameObject;
-        private Harmony harmony;
+        // private Harmony harmony;
 
 
         public override void Dispose()
@@ -45,7 +45,7 @@ namespace ScriptTrainer
 
         public override void OnModSettingUpdate()
         {
-            string hot_Key = default(string) ;
+            string hot_Key = default(string);
             ModManager.GetSetting(base.ModIdStr, "Hot_key", ref hot_Key);
             if (!Enum.TryParse<KeyCode>(hot_Key, out MainWindow.Hot_Key))
             {

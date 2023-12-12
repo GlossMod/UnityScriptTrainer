@@ -556,7 +556,7 @@ namespace ScriptTrainer
 
         private static Sprite GetLoadedSprite(string spriteName)
         {
-            Dictionary<string, Sprite> map;
+            // Dictionary<string, Sprite> map;
             Sprite sprite = default(Sprite);
 
             // LoadConstantPackers

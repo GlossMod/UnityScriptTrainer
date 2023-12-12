@@ -41,8 +41,8 @@ namespace ScriptTrainer
                 return list;
             }
         }
-        
-       public static List<short> FeatureIds
+
+        public static List<short> FeatureIds
         {
             get
             {
@@ -59,7 +59,7 @@ namespace ScriptTrainer
         private static int elementX;
         private static int elementY;
 
-        private static int type = 0;
+        // private static int type = 0;
         private static int page = 1;
         private static int conunt = 15;
         // Config.MapArea.Instance.Count / conunt 向下取整
@@ -81,7 +81,7 @@ namespace ScriptTrainer
             }
         }
 
-        private static GameObject ItemPanel;
+        // private static GameObject ItemPanel;
         private static List<GameObject> ItemButtons = new List<GameObject>();
 
         #endregion
@@ -93,7 +93,7 @@ namespace ScriptTrainer
             initialY = elementY = y;
             Initialize();
         }
-        
+
         public static void Initialize()
         {
             searchBar();
@@ -146,7 +146,7 @@ namespace ScriptTrainer
                 i++;
                 if (i % 3 == 0)
                 {
-                    hr(0,10);
+                    hr(0, 10);
                 }
                 ItemButtons.Add(btn);
             }
@@ -239,7 +239,7 @@ namespace ScriptTrainer
         }
 
         #region[元素方法]
-        public static GameObject AddButton(string Text, int Level , GameObject panel, UnityAction action, UnityAction action2)
+        public static GameObject AddButton(string Text, int Level, GameObject panel, UnityAction action, UnityAction action2)
         {
             // 按钮宽 190 高 50
             int buttonWidth = 190;
@@ -254,7 +254,7 @@ namespace ScriptTrainer
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#FFD54Fff"));
             GameObject uiText = UIControls.createUIText(background, txtBgSprite);
             uiText.GetComponent<Text>().text = Text;
-            uiText.GetComponent<Text>().color = UIControls. HTMLString2Color("FFD54Fff");
+            uiText.GetComponent<Text>().color = UIControls.HTMLString2Color("FFD54Fff");
             uiText.GetComponent<RectTransform>().localPosition = new Vector3(0, 5, 0);
             // 居中对齐
             uiText.GetComponent<Text>().alignment = TextAnchor.UpperCenter;
