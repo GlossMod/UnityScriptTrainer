@@ -15,13 +15,10 @@ namespace ScriptTrainer
         #region 声明变量
 
         // Trainer Base
-        public static GameObject obj = null;
-        public static MainWindow instance;
         public static bool initialized = false;
         public static bool _optionToggle = false;
 
         // UI
-        public static AssetBundle testAssetBundle = null;
         public static GameObject canvas = null;
         public static readonly int width = Mathf.Min(Screen.width, 740);
         public static readonly int height = (Screen.height < 400) ? Screen.height : (450);
@@ -124,17 +121,17 @@ namespace ScriptTrainer
                     ScriptPatch.ItemTweaks(num);
                 }, 1, 1);
 
-                AddCount(BasicScripts, "无人机数量", player.mecha.droneCount, (int num) =>
-                {
-                    player.mecha.droneCount = num;
+                // AddCount(BasicScripts, "无人机数量", player.mecha.droneCount, (int num) =>
+                // {
+                //     player.mecha.droneCount = num;
 
-                }, 1, 1, 256);
+                // }, 1, 1, 256);
 
-                AddCount(BasicScripts, "无人机速度", (int)player.mecha.droneSpeed, (int num) =>
-                {
-                    player.mecha.droneSpeed = num;
+                // AddCount(BasicScripts, "无人机速度", (int)player.mecha.droneSpeed, (int num) =>
+                // {
+                //     player.mecha.droneSpeed = num;
 
-                }, 1, 1, 256);
+                // }, 1, 1, 256);
 
                 hr();
                 AddCount(BasicScripts, "跳跃高度", (int)player.mecha.jumpSpeed, (int num) =>

@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityGameUI;
-using Object = UnityEngine.Object;
 
 namespace ScriptTrainer
 {
-   
+
 
     internal class ByWindow
     {
@@ -21,7 +18,7 @@ namespace ScriptTrainer
         #endregion
 
 
-        
+
         // ReSharper disable Unity.PerformanceAnalysis
         public void init(GameObject canvas)
         {
@@ -43,7 +40,7 @@ namespace ScriptTrainer
             // 相关按钮
             Transform button = Components.createUIButton(By);
             RectTransform rt = button.GetComponent<RectTransform>();
-            rt.localPosition = new Vector3(elementX, elementY, 0);
+            rt.localPosition = new Vector3(elementX, elementY + 15, 0);
             rt.sizeDelta = new Vector2(80, 30);    // 设置按钮大小
             button.GetComponentInChildren<Text>().text = "获取更新";
             button.GetComponent<UIButton>().onClick += (int a) =>
@@ -52,7 +49,7 @@ namespace ScriptTrainer
             };
             Transform button2 = Components.createUIButton(By);
             RectTransform rt2 = button2.GetComponent<RectTransform>();
-            rt2.localPosition = new Vector3(elementX + 90, elementY, 0);
+            rt2.localPosition = new Vector3(elementX + 90, elementY + 15, 0);
             rt2.sizeDelta = new Vector2(80, 30);    // 设置按钮大小
             button2.GetComponentInChildren<Text>().text = "投喂小莫";
             button2.GetComponent<UIButton>().onClick += (int a) =>

@@ -26,11 +26,6 @@
         <PackageReference Include="UnityEngine.Modules" Version="2020.3.22" IncludeAssets="compile" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-        <!-- <PackageReference Include="rainbowblood.UniverseLib.Mono" Version="2.0.0" /> -->
-        <PackageReference Include="UnityEngine.Modules" Version="2022.3.2" IncludeAssets="compile" />
-    </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2"
             PrivateAssets="all" />

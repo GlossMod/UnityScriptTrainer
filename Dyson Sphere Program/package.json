@@ -1,0 +1,14 @@
+{
+  "name": "yog-sothoths-yard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build scripts": "dotnet build -o \"F:\\steam\\steamapps\\common\\Dyson Sphere Program\\BepInEx\\scripts\" ScriptTrainer",
+    "build plugins": "dotnet build -o \"F:\\steam\\steamapps\\common\\Dyson Sphere Program\\BepInEx\\plugins\" ScriptEngine",
+    "run": "dotnet run -c release ScriptTrainer",
+    ".": "dotnet build"
+  },
+  "author": "小莫",
+  "license": "ISC"
+}

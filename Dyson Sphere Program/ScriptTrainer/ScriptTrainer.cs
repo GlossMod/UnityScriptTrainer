@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using UnityEngine;
-using System.Collections;
-//using ConfigurationManager;
-using UnityEngine.Experimental.Rendering;
-using System.Reflection;
-using BepInEx.Logging;
-using System.Text.RegularExpressions;
 
 namespace ScriptTrainer
 {
-    [BepInPlugin("aoe.top.DysonScriptTrainer", "Dyson Script Trainer By:小莫", "3.1")]
+    [BepInPlugin("aoe.top.DysonScriptTrainer", "Dyson Script Trainer By:小莫", "3.2")]
 
 
     public class ScriptTrainer : BaseUnityPlugin

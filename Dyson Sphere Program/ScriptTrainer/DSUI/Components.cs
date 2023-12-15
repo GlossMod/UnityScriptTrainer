@@ -32,7 +32,7 @@ namespace ScriptTrainer
 
 
         // 创建背景 复制的游戏中物品清单样式
-        public static UIInventoryWindow createUIPanel(GameObject canvas,string title, float width, float height)
+        public static UIInventoryWindow createUIPanel(GameObject canvas, string title, float width, float height)
         {
             UIInventoryWindow background = Object.Instantiate<UIInventoryWindow>(UIRoot.instance.uiGame.inventoryWindow, canvas.transform);
 
@@ -62,7 +62,7 @@ namespace ScriptTrainer
             var title_text = panel_bg.transform.Find("title-text");
             Object.Destroy(title_text.GetComponentInChildren<Localizer>());
             title_text.GetComponentInChildren<Text>().text = title;
-            
+
             // 显示背景
             background.gameObject.SetActive(true);
             return background;
@@ -73,12 +73,12 @@ namespace ScriptTrainer
             //UIEscMenu escMenu = Object.Instantiate<UIEscMenu>(UIRoot.instance.uiGame.escMenu);
             //Transform button =  escMenu.transform.Find("button (1)");
 
-            Transform button = Object.Instantiate(UIRoot.instance.uiGame.escMenu.transform.Find("button (1)"));
+            Transform button = Object.Instantiate(UIRoot.instance.uiGame.escMenu.transform.Find("button-group/button (1)"));
             button.SetParent(canvas.transform);
             button.GetComponentInChildren<Text>().fontSize = 14;     // 设置字体大小
 
             Object.Destroy(button.GetComponentInChildren<Localizer>());
-            
+
             button.name = "button";
             return button;
         }
@@ -112,7 +112,7 @@ namespace ScriptTrainer
 
 
             count.SetParent(canvas.transform);
-            
+
             return count;
 
         }
@@ -168,7 +168,7 @@ namespace ScriptTrainer
         //    sr.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
         //    sr.horizontalScrollbarSpacing = -3f;
         //    sr.verticalScrollbarSpacing = -3f;
-            
+
 
         //    return cpuScrollRect.transform;
         //}

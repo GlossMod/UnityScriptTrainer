@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityGameUI;
-using static System.Collections.Specialized.BitVector32;
-using Object = UnityEngine.Object;
-// ReSharper disable All
-
 
 namespace ScriptTrainer
 {
     public class ItemWindow
     {
         #region[全局参数]
-        public  static ItemProto[] dataArray = LDB.items.dataArray; // 物品列表
-        private static int ItemConst = 100;
+        public static ItemProto[] dataArray = LDB.items.dataArray; // 物品列表
         private static List<GameObject> ItemButtons = new List<GameObject>();
 
 
@@ -55,7 +47,7 @@ namespace ScriptTrainer
             itemWindow = UIControls.createUIPanel(canvas, "330", "630");
             itemWindow.GetComponent<Image>().color = UIControls.HTMLString2Color("#00000000");
             itemWindow.name = "itemWindow";
-            
+
             AddItem(itemWindow);
             pageBar(canvas);
             SearchItem(canvas);
@@ -81,9 +73,16 @@ namespace ScriptTrainer
 
                 GameObject btn = createItemButton(canvas, item, () =>
                 {
-                    GameMain.mainPlayer.package.AddItemStacked(item.ID, ItemConst, 0, out int remainInc);
-                    
-                    UIItemup.Up(item.ID, ItemConst);
+                    UIWindows.SpawnInputDialog($"您想获取多少个{item.Name}？", "添加", "100", (string count) =>
+                    {
+                        GameMain.mainPlayer.package.AddItemStacked(item.ID, int.Parse(count), 0, out int remainInc);
+                        UIItemup.Up(item.ID, int.Parse(count));
+
+                        //KBEngine.Avatar player = Tools.instance.getPlayer();    // 获取玩家 
+                        //player.addItem(item.itemID, Tools.CreateItemSeid(item.itemID), count.ConvertToIntDef(1));
+                        //Singleton.inventory.AddItem(item.itemID);
+                    });
+
 
                 });
 
@@ -151,9 +150,9 @@ namespace ScriptTrainer
             uiInputField.GetComponent<RectTransform>().localPosition = new Vector3(-230 + 30, -190, 0);
             uiInputField.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 30);
             // 设置输入框边框颜色
-            
-            
-            
+
+
+
 
             // 文本框失去焦点时触发方法
             uiInputField.GetComponent<InputField>().onEndEdit.AddListener((string text) =>
@@ -225,7 +224,7 @@ namespace ScriptTrainer
             int start = (page - 1) * conunt;
             int end = start + conunt;
             if (end > list.Count) end = list.Count;
-            
+
             return list.GetRange(start, end - start);
 
         }

@@ -1,7 +1,5 @@
 ﻿using BepInEx.Configuration;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -339,7 +337,7 @@ namespace ScriptTrainer
             Sprite txtBgSprite = UIControls.createSpriteFrmTexture(UIControls.createDefaultTexture("#7AB900FF"));
             GameObject uiText = UIControls.createUIText(scrollView, txtBgSprite, "#FFFFFFFF");
             //uiText.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 30);
-            uiText.GetComponent<RectTransform>().localPosition = new Vector3(-300 + 80, -160 + 10, 0 );
+            uiText.GetComponent<RectTransform>().localPosition = new Vector3(-300 + 80, -160 + 10, 0);
             Text text = uiText.GetComponent<Text>();
             text.text = "此功能By:@qq1091192337";
             text.alignment = TextAnchor.MiddleLeft;
