@@ -22,3 +22,6 @@
 [submodule "Yog-Sothoth's Yard/ScriptTrainer/UnityGameUI"]
 	path = Yog-Sothoth's Yard/ScriptTrainer/UnityGameUI
 	url = https://github.com/GlossMod/UnityGameUI.git
+[submodule "Cluckmech Oasis/ScriptTrainer/UnityGameUI"]
+	path = Cluckmech Oasis/ScriptTrainer/UnityGameUI
+	url = https://github.com/GlossMod/UnityGameUI.git
