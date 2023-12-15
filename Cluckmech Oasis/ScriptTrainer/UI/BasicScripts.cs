@@ -6,9 +6,25 @@ namespace ScriptTrainer;
 public class BasicScripts
 {
 
-    private 总结脚本 SummaryScript => GameObject.Find("总结").GetComponent<总结脚本>();
-    private 模块_玩家_建造 建造脚本 => GameObject.Find("玩家").GetComponent<模块_玩家_建造>();
-    private 模块_玩家_动力 玩家动力 => 常用函数.搜索物体并返回物体内组件<模块_玩家_动力>("玩家");
+    private 总结脚本 SummaryScript => GameObject.Find("总结")?.GetComponent<总结脚本>();
+    // private 模块_玩家_建造 建造脚本 => GameObject.Find("玩家")?.GetComponent<模块_玩家_建造>();
+    public static 模块_玩家_动力 玩家动力
+    {
+        get
+        {
+            try
+            {
+                return 常用函数.搜索物体并返回物体内组件<模块_玩家_动力>("玩家");
+
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.Message);
+
+                return null;
+            }
+        }
+    }
 
 
     public BasicScripts(GameObject panel)
@@ -21,10 +37,15 @@ public class BasicScripts
                 SummaryScript.当前金钱数 = int.Parse(value);
             });
 
-            Components.AddInputField("动力", 150, 玩家动力.当前动力.ToString(), panel, (string value) =>
+            if (玩家动力)
             {
-                玩家动力.当前动力 = int.Parse(value);
-            });
+                Components.AddInputField("动力", 150, 玩家动力.当前动力.ToString(), panel, (string value) =>
+                {
+                    玩家动力.当前动力 = int.Parse(value);
+                });
+            }
+
+
 
             Components.AddInputField("基地血量", 150, SummaryScript.当前基地血量.ToString(), panel, (string value) =>
             {
