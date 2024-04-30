@@ -170,7 +170,7 @@ namespace ScriptTrainer
 
 
                     #region[创建标题 和 关闭按钮]
-                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.3");
+                    AddTitle("【太吾绘卷】内置修改器 By:小莫 1.6.4");
 
                     GameObject closeButton = UIControls.createUIButton(uiPanel, "#B71C1CFF", "X", () =>
                     {
