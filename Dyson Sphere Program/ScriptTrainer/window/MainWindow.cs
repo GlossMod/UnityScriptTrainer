@@ -99,8 +99,8 @@ namespace ScriptTrainer
                 UIInventoryWindow background = Components.createUIPanel(canvas, "内置修改器", width, height);
                 background.gameObject.name = "background";
 
-                // 关闭按钮 panel-bg/btn-box/close-btn
-                Transform close_btn = background.transform.Find("panel-bg/btn-box/close-btn");
+                // 关闭按钮 panel-bg/btn-box/close-wnd-btn
+                Transform close_btn = background.transform.Find("panel-bg/btn-box/close-wnd-btn");
 
                 close_btn.GetComponent<UIButton>().onClick += (int i) =>
                 {

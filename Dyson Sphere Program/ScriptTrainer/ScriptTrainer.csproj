@@ -31,7 +31,7 @@
             PrivateAssets="all" />
     </ItemGroup>
     <PropertyGroup>
-        <game_Location>F:\steam\steamapps\common\Dyson Sphere Program</game_Location>
+        <game_Location>D:\SteamLibrary\steamapps\common\Dyson Sphere Program</game_Location>
         <game_Data>DSPGAME_Data</game_Data>
     </PropertyGroup>
     <ItemGroup>

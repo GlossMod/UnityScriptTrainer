@@ -40,6 +40,7 @@ namespace ScriptTrainer
             Object.Destroy(horizontal_tab.transform.Find("performance-btn").gameObject);
             Object.Destroy(horizontal_tab.transform.Find("achievement-btn").gameObject);
             Object.Destroy(horizontal_tab.transform.Find("property-btn").gameObject);
+            Object.Destroy(horizontal_tab.transform.Find("kill-btn").gameObject);
 
             RectTransform rt = horizontal_tab.GetComponent<RectTransform>();
             rt.localPosition = localPosition;

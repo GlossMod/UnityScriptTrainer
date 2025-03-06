@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build scripts": "dotnet build -o \"F:\\steam\\steamapps\\common\\Dyson Sphere Program\\BepInEx\\scripts\" ScriptTrainer",
-    "build plugins": "dotnet build -o \"F:\\steam\\steamapps\\common\\Dyson Sphere Program\\BepInEx\\plugins\" ScriptEngine",
+    "build scripts": "dotnet build -o \"D:\\SteamLibrary\\steamapps\\common\\Dyson Sphere Program\\BepInEx\\scripts\" ScriptTrainer",
+    "build plugins": "dotnet build -o \"D:\\SteamLibrary\\steamapps\\common\\Dyson Sphere Program\\BepInEx\\plugins\" ScriptTrainer",
     "run": "dotnet run -c release ScriptTrainer",
     ".": "dotnet build"
   },
